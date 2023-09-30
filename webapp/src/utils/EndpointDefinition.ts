@@ -1,0 +1,1 @@
+export const ENDPOINT = "http://gs.kewargs.com:5000"
