@@ -2,9 +2,6 @@ import os
 
 from flask import Flask, request
 
-
-print("Hello world")
-
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
@@ -12,6 +9,8 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
     )
+
+    print("App instance path:", os.path.join(app.instance_path, 'flaskr.sqlite'))
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
@@ -27,7 +26,7 @@ def create_app(test_config=None):
         pass
 
     @app.route('/')
-    def home():
+    def index():
         return 'Homepage'
 
     # a simple page that says hello
@@ -57,8 +56,28 @@ def create_app(test_config=None):
         from . import db
         db.init_app(app)
     
+    @app.route('/markets/all')
+    def all_markets():
+        return [
+            {
+                id: 0,
+                name: "Ames Farmers' Market",
+                user_ids: [0, 1, 5, 9],
+                lat: 42.023680,
+                long: -93.649614,
+            },
+            {
+                id: 1,
+                name: "Des Moines Farmers' Market",
+                user_ids: [13, 200, 4, 6],
+                lat: 41.596464,
+                long: -93.688780
+            }
+        ]
+
     @app.route('/markets/<market_id>', methods = ['GET', 'POST', 'DELETE'])
     def market(market_id):
         pass
+
 
     return app
