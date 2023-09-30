@@ -35,7 +35,7 @@ const NavBar: FunctionComponent<NavBarProps> = (props): JSX.Element => {
     console.log(theme.palette);
 
     return <Box sx={{ flexGrow: 1 }}>
-        <Box position="static" className="frsbc" style={{
+        <Box className="frsbc" style={{
             background: "none"
         }}>
             <Box className="frsbc" style={{
