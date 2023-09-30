@@ -7,12 +7,17 @@ import NavBar from './components/NavBar/NavBar';
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
+import MarketplacePage from './components/MarketplacePage/MarketplacePage';
 
 const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
   },
+  {
+    path: "/market",
+    element: <MarketplacePage />,
+  }
 ]);
 
 

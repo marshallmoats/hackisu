@@ -6,12 +6,12 @@ const globalTheme = createTheme({
             default: '#f5eadc',
         },
         primary: {
-            main: '#fe6601',
+            main: '#fe8801',
         },
     },
 
     typography: {
-        fontSize: 13,
+        fontSize: 14,
         fontFamily: [
             'Barlow',
             '-apple-system',
