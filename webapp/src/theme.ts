@@ -6,7 +6,7 @@ const globalTheme = createTheme({
             default: '#f5eadc',
         },
         primary: {
-            main: '#c75d16',
+            main: '#fe6601',
         },
     },
 

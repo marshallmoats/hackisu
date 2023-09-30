@@ -23,8 +23,10 @@ const root = ReactDOM.createRoot(
 root.render(
   <React.StrictMode>
     <ThemeProvider theme={globalTheme}>
-      <NavBar />
-      <RouterProvider router={router} />
+      <div style={{ padding: "0.5em" }}>
+        <NavBar />
+        <RouterProvider router={router} />
+      </div>
     </ThemeProvider>
   </React.StrictMode>
 );
