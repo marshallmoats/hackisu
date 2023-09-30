@@ -8,7 +8,7 @@ import NavBar from './components/NavBar/NavBar';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import MarketplacePage from './components/MarketplacePage/MarketplacePage';
-import { AppContext, AppContextProps } from './context';
+import { AppContext, AppContextProps, emptyAppContext } from './context';
 import { getMarketList } from './utils/BackendCalls';
 
 const router = createBrowserRouter([
@@ -27,7 +27,9 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
-const appContext: AppContextProps = { markets: [] }
+const appContext: AppContextProps = {
+    ...emptyAppContext
+}
 
 root.render(
     <React.StrictMode>
