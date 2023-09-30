@@ -2,7 +2,7 @@ DROP TABLE IF EXISTS user;
 -- DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS market;
 DROP TABLE IF EXISTS uid_mid;
-DROP TABLE IF EXISTS imgs;
+DROP TABLE IF EXISTS img;
 
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -14,7 +14,8 @@ CREATE TABLE market (
   market_name TEXT NOT NULL,
   -- user_ids 
   lat REAL,
-  long REAL
+  long REAL,
+  desc TEXT
 );
 
 CREATE TABLE uid_mid (
@@ -22,7 +23,7 @@ CREATE TABLE uid_mid (
   market_id INTEGER
 );
 
-CREATE TABLE imgs (
+CREATE TABLE img (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   img_data BLOB
 )

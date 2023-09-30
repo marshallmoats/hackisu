@@ -4,9 +4,12 @@ from . import db
 
 from flask import Flask, request
 
+from flask_cors import CORS
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
+    CORS(app)
     app.config.from_mapping(
         SECRET_KEY='dev',
         DATABASE=os.path.join(app.instance_path, 'flaskr.sqlite'),
@@ -24,6 +27,9 @@ def create_app(test_config=None):
         os.makedirs(app.instance_path)
     except OSError:
         pass
+
+    from . import db
+    db.init_app(app)
 
     @app.route('/')
     def index():
@@ -65,31 +71,68 @@ def create_app(test_config=None):
         else:
             pass
             # POST Error 405 Method Not Allowed
-
-    from . import db
-    db.init_app(app)
+    
+    # @app.route('/markets/all')
+    # def all_markets():
+    #     return [
+    #         {
+    #             "id": 0,
+    #             "name": "Ames Farmers' Market",
+    #             "user_ids": [0, 1, 5, 9],
+    #             "lat": 42.023680,
+    #             "long": -93.649614,
+    #         },
+    #         {
+    #             "id": 1,
+    #             "name": "Des Moines Farmers' Market",
+    #             "user_ids": [13, 200, 4, 6],
+    #             "lat": 41.596464,
+    #             "long": -93.688780
+    #         }
+    #     ]
     
     @app.route('/markets/all')
-    def all_markets():
+    def every_market():
+        database = db.get_db()
+        cur = database.cursor()
+        try:
+            cur.execute(
+                "SELECT * FROM market",
+                ()
+            )
+        except Exception as e:
+            return e
+
         return [
             {
-                "id": 0,
-                "name": "Ames Farmers' Market",
-                "user_ids": [0, 1, 5, 9],
-                "lat": 42.023680,
-                "long": -93.649614,
-            },
-            {
-                "id": 1,
-                "name": "Des Moines Farmers' Market",
-                "user_ids": [13, 200, 4, 6],
-                "lat": 41.596464,
-                "long": -93.688780
-            }
+                "id": market[0],
+                "name": market[1],
+                "lat": market[2],
+                "long": market[3],
+                "desc": market[4],
+                "user_ids": market_userids(market[0])
+            } for market in cur.fetchall()
         ]
 
+    @app.route('/markets/create', methods = ['POST'])
+    def create_market():
+        database = db.get_db()
+        name = request.json['name']
+        lat = request.json['lat']
+        long = request.json['long']
+        desc = request.json['desc']
+        try:
+            database.execute(
+                "INSERT INTO market (market_name, lat, long, desc) VALUES (?, ?, ?, ?)",
+                (name, lat, long, desc)
+            )
+            database.commit()
+        except Exception as e:
+            return f"{e}"
+        return "Market created successfully."
+
     @app.route('/markets/join/<market_id>/<user_id>', methods = ['POST'])
-    def create_market(market_id, user_id):
+    def join_market(market_id, user_id):
         database = db.get_db()
         try:
             database.execute(
@@ -102,8 +145,8 @@ def create_app(test_config=None):
         
         return "Successfully joined market."
 
-    @app.route('/markets/<market_id>', methods = ['GET', 'POST', 'DELETE'])
-    def market(market_id):
+    @app.route('/markets/users/<market_id>', methods = ['GET', 'POST', 'DELETE'])
+    def market_userids(market_id):
         database = db.get_db()
         cur = database.cursor()
         try:
@@ -118,22 +161,30 @@ def create_app(test_config=None):
 
     @app.route('/image/<image_id>')
     def get_image(image_id):
-        pass
+        database = db.get_db()
+        cur = database.cursor()
+        try:
+            cur.execute(
+                "SELECT * FROM img WHERE id = (?)",
+                (image_id,)
+            )
+        except Exception as e:
+            return e
+        print(cur.fetchall())
+        return [row[1] for row in cur.fetchall()]
 
-    @app.route('/image/upload', methods = "POST")
+    @app.route('/image/upload', methods = ["POST"])
     def upload_image():
-        img = request.files['image']
+        image = request.files['image']
 
         if image:
             # Read the binary data of the image
             image_data = image.read()
-
+            database = db.get_db()
             # Store the image data in the database
-            conn = sqlite3.connect('images.db')
-            cursor = conn.cursor()
-            cursor.execute('INSERT INTO images (image_data) VALUES (?)', (image_data,))
-            conn.commit()
-            conn.close()
+            cursor = database.cursor()
+            database.execute('INSERT INTO img (img_data) VALUES (?)', (image_data,))
+            database.commit()
             return "Image uploaded successfully."
         else:
             return "No image provided."
