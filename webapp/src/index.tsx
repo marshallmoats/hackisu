@@ -4,11 +4,11 @@ import './index.css';
 import App from './App';
 import globalTheme from './theme';
 import NavBar from './components/NavBar/NavBar';
-import Item from './components/Item';
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import MarketplacePage from './components/MarketplacePage/MarketplacePage';
+import { AppContext, AppContextProps, emptyAppContext } from './context';
 import ProductsPage from './components/ProductsPage';
 
 const router = createBrowserRouter([
@@ -28,18 +28,37 @@ const router = createBrowserRouter([
 
 
 const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
+    document.getElementById('root') as HTMLElement
 );
 
+const appContext: AppContextProps = {
+    ...emptyAppContext
+}
+
 root.render(
-  <React.StrictMode>
-    <ThemeProvider theme={globalTheme}>
-      <div style={{ padding: "0.5em" }}>
-        <NavBar />
-        <RouterProvider router={router} />
-      </div>
-    </ThemeProvider>
-  </React.StrictMode>
+    <React.StrictMode>
+        <AppContext.Provider value={appContext}>
+            <ThemeProvider theme={globalTheme}>
+                <div style={{
+                    height: "100vh",
+                    padding: "0.625em",
+                    boxSizing: "border-box",
+                    display: 'flex',
+                    gap: 4,
+                    flexDirection: "column",
+                    justifyContent: "flex-start"
+                }}>
+                    <NavBar />
+                    <div style={{
+                        flexGrow: 1,
+                        height: "100%",
+                    }}>
+                        <RouterProvider router={router} />
+                    </div>
+                </div>
+            </ThemeProvider>
+        </AppContext.Provider>
+    </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
