@@ -4,10 +4,12 @@ import './index.css';
 import App from './App';
 import globalTheme from './theme';
 import NavBar from './components/NavBar/NavBar';
+import Item from './components/Item';
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import MarketplacePage from './components/MarketplacePage/MarketplacePage';
+import ProductsPage from './components/ProductsPage';
 
 const router = createBrowserRouter([
   {
@@ -17,6 +19,10 @@ const router = createBrowserRouter([
   {
     path: "/market",
     element: <MarketplacePage />,
+  },
+  {
+    path: "/products",
+    element: <ProductsPage />
   }
 ]);
 
