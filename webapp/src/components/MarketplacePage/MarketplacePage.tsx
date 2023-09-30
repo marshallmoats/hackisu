@@ -1,17 +1,30 @@
+import "./styles.css";
+
 import Box from "@mui/material/Box";
-import { FunctionComponent } from "react";
+import { FunctionComponent, useContext, useEffect } from "react";
+import MarketLeftSidebar from "./MarketLeftSidebar";
+import MarketMainContent from "./MarketMainContent";
+import { AppContext } from "../../context";
+import { getMarketList } from "../../utils/BackendCalls";
 
 interface MarketplacePageProps {
 
 }
 
 const MarketplacePage: FunctionComponent<MarketplacePageProps> = (props): JSX.Element => {
-    return <Box className="frsbc" style={{
-        border: "1px solid red",
-        boxSizing: "border-box",
+    const appCtx = useContext(AppContext);
+
+    useEffect(() => {
+        getMarketList().then((res) => {
+            appCtx.markets = res ?? appCtx.markets
+        })
+    }, [])
+
+    return <Box className="frsbc market-page-container" style={{
         height: "100%"
     }}>
-        dasklds
+        <MarketLeftSidebar />
+        <MarketMainContent />
     </Box>;
 }
 

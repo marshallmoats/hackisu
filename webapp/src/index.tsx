@@ -8,6 +8,8 @@ import NavBar from './components/NavBar/NavBar';
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import MarketplacePage from './components/MarketplacePage/MarketplacePage';
+import { AppContext, AppContextProps } from './context';
+import { getMarketList } from './utils/BackendCalls';
 
 const router = createBrowserRouter([
     {
@@ -25,27 +27,31 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 
+const appContext: AppContextProps = { markets: [] }
+
 root.render(
     <React.StrictMode>
-        <ThemeProvider theme={globalTheme}>
-            <div style={{
-                height: "100vh",
-                padding: "0.425em",
-                boxSizing: "border-box",
-                display: 'flex',
-                gap: 4,
-                flexDirection: "column",
-                justifyContent: "flex-start"
-            }}>
-                <NavBar />
+        <AppContext.Provider value={appContext}>
+            <ThemeProvider theme={globalTheme}>
                 <div style={{
-                    flexGrow: 1,
-                    height: "100%",
+                    height: "100vh",
+                    padding: "0.625em",
+                    boxSizing: "border-box",
+                    display: 'flex',
+                    gap: 4,
+                    flexDirection: "column",
+                    justifyContent: "flex-start"
                 }}>
-                    <RouterProvider router={router} />
+                    <NavBar />
+                    <div style={{
+                        flexGrow: 1,
+                        height: "100%",
+                    }}>
+                        <RouterProvider router={router} />
+                    </div>
                 </div>
-            </div>
-        </ThemeProvider>
+            </ThemeProvider>
+        </AppContext.Provider>
     </React.StrictMode>
 );
 
