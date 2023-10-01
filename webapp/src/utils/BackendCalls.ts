@@ -11,7 +11,6 @@ function createMarketProps(res: any): MarketProps {
         startTime: res.start_time,
         endTime: res.end_time,
         userIds: res.user_ids,
-
     }
 }
 
@@ -114,7 +113,6 @@ export async function getProductsList(): Promise<ProductsProps[] | undefined> {
                 "accept": "application/json",
             }
         });
-
         return (await result.json()).map(createProductsProps);
     } catch (ex) {
         console.log(ex);
