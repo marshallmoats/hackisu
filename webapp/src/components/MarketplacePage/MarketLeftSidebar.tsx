@@ -7,7 +7,8 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import { FormGroup, InputLabel, MenuItem, Radio, RadioGroup, Select, Switch } from "@mui/material";
+import { FormGroup, InputLabel, MenuItem, Radio, RadioGroup, Select, Switch, Typography } from "@mui/material";
+import { DatePicker } from "@mui/x-date-pickers";
 
 interface MarketLeftSidebarProps {
     setSearchPattern: (arg0: string) => void;
@@ -55,23 +56,27 @@ const MarketLeftSidebar: FunctionComponent<MarketLeftSidebarProps> = (props): JS
             flexDirection: "column",
             gap: "0.4em"
         }}>
-            <FormControlLabel control={
-                <Switch
-                    value={props.isLimitDistance}
-                    onChange={(e) => { props.setIsLimitDistance(e.target.checked) }}
-                />
-            } label={`Limit distance to ${props.maxDistance} mi`} />
-            <FormControl aria-label="text" sx={{ flexGrow: 1 }}>
-                <Slider
-                    value={props.maxDistance}
-                    defaultValue={100}
-                    disabled={!props.isLimitDistance}
-                    onChange={handleChange}
-                    min={0}
-                    max={300}
-                    valueLabelDisplay="auto"
-                />
-            </FormControl>
+            <Box className="frsbc">
+                <FormControlLabel control={
+                    <Switch
+                        value={props.isLimitDistance}
+                        onChange={(e) => { props.setIsLimitDistance(e.target.checked) }}
+                    />
+                } label="Limit distance" />
+                <FormControl aria-label="text" sx={{ flexGrow: 1 }}>
+                    <Slider
+                        value={props.maxDistance}
+                        defaultValue={100}
+                        disabled={!props.isLimitDistance}
+                        onChange={handleChange}
+                        min={0}
+                        max={300}
+                        valueLabelDisplay="auto"
+                    />
+                </FormControl>
+                <Typography noWrap sx={{ width: "4.6em", ml: 2, float: "right"}}>{props.maxDistance} miles</Typography>
+            </Box>
+            <DatePicker label="Filter date: MM/DD/YYYY" />
             <FormControlLabel
                 control={
                     <Checkbox
@@ -100,7 +105,7 @@ const MarketLeftSidebar: FunctionComponent<MarketLeftSidebarProps> = (props): JS
                     id="country-select"
                     value={country}
                     onChange={handleDropdownChange}
-                    label="Country"
+                    label="Placeholder"
                 >
                     <MenuItem value="a">Placeholder</MenuItem>
                     <MenuItem value="b">Placeholder</MenuItem>

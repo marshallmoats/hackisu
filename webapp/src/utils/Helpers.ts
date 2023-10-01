@@ -30,5 +30,36 @@ export function randomMarketImage(hash: number) {
 
 
 export function timestampToDate(timestampSeconds: number) {
-    return moment.unix(timestampSeconds).format('ddd, MMM DD, YYYY');
+    return moment.unix(timestampSeconds).format('ddd, MMM DD');
+}
+
+// Coordinates of ISU
+const currentLongitude = -93.6512984
+const currentLatitute = 42.0257609
+
+function toRad(x: number) {
+    return x * Math.PI / 180;
+}
+
+export function haversineDistance(long: number, lat: number) {
+
+    var lon1 = currentLongitude;
+    var lat1 = currentLatitute;
+
+    var lon2 = long;
+    var lat2 = lat;
+
+    var R = 6371; // km
+
+    var x1 = lat2 - lat1;
+    var dLat = toRad(x1);
+    var x2 = lon2 - lon1;
+    var dLon = toRad(x2)
+    var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+        Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+        Math.sin(dLon / 2) * Math.sin(dLon / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var d = R * c;
+
+    return d / 1.60934;  // to miles
 }

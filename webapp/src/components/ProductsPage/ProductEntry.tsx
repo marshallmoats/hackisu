@@ -1,4 +1,4 @@
-import Box from "@mui/material/Box";
+    import Box from "@mui/material/Box";
 import { FunctionComponent, useState } from "react";
 import { ProductsProps } from "../../utils/types";
 import Card from '@mui/material/Card';
@@ -43,7 +43,7 @@ const ProductEntry: FunctionComponent<ProductEntryProps> = (props): JSX.Element 
 
     return (<Card elevation={4} className="Products-entry-card">
         <CardActionArea sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}
-            component={Link} to={`/market/${props.Products.id}`}
+            component={Link} to={`/produce/${props.Products.id}`}
         >
             <CardHeader
                 style={{

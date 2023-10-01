@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
@@ -7,26 +7,26 @@ import NavBar from './components/NavBar/NavBar';
 
 import { ThemeProvider } from '@mui/material/styles';
 import MarketplacePage from './components/MarketplacePage/MarketplacePage';
-import { AppContext, AppContextProps, emptyAppContext } from './context';
 import ProductsPage from './components/ProductsPage/ProductsPage';
-import { getMarketList } from './utils/BackendCalls';
-import { MarketProps } from './utils/types';
-import { Router, Route, Link, BrowserRouter, Routes } from "react-router-dom";
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+
+import { Route, BrowserRouter, Routes } from "react-router-dom";
+import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 
 // Define your routes
 const routes = [
-  {
-    path: "/",
-    element: <App />,
-  },
-  {
-    path: "/events",
-    element: <MarketplacePage />,
-  },
-  {
-    path: "/market",
-    element: <ProductsPage />
-  }
+    {
+        path: "/",
+        element: <App />,
+    },
+    {
+        path: "/markets",
+        element: <MarketplacePage />,
+    },
+    {
+        path: "/produce",
+        element: <ProductsPage />
+    }
 ];
 
 const root = ReactDOM.createRoot(
@@ -35,37 +35,39 @@ const root = ReactDOM.createRoot(
 
 root.render(
     <React.StrictMode>
-        <ThemeProvider theme={globalTheme}>
-            <BrowserRouter>
-                <div style={{
-                    height: "93.2vh",
-                    padding: "0.625em",
-                    boxSizing: "border-box",
-                    display: 'flex',
-                    overflow: "visible",
-                    gap: 4,
-                    flexDirection: "column",
-                    justifyContent: "flex-start"
-                }}>
-                    <NavBar />
+        <LocalizationProvider dateAdapter={AdapterMoment}>
+            <ThemeProvider theme={globalTheme}>
+                <BrowserRouter>
                     <div style={{
-                        flexGrow: 1,
-                        height: "100%",
+                        height: "93.2vh",
+                        padding: "0.625em",
+                        boxSizing: "border-box",
+                        display: 'flex',
                         overflow: "visible",
+                        gap: 10,
+                        flexDirection: "column",
+                        justifyContent: "flex-start"
                     }}>
-                        <Routes>
-                            {routes.map((route) => (
-                                <Route
-                                    key={route.path}
-                                    path={route.path}
-                                    element={route.element}
-                                />
-                            ))}
-                        </Routes>
+                        <NavBar />
+                        <div style={{
+                            flexGrow: 1,
+                            height: "100%",
+                            overflow: "visible",
+                        }}>
+                            <Routes>
+                                {routes.map((route) => (
+                                    <Route
+                                        key={route.path}
+                                        path={route.path}
+                                        element={route.element}
+                                    />
+                                ))}
+                            </Routes>
+                        </div>
                     </div>
-                </div>
-            </BrowserRouter>
-        </ThemeProvider>
+                </BrowserRouter>
+            </ThemeProvider>
+        </LocalizationProvider>
     </React.StrictMode>
 );
 

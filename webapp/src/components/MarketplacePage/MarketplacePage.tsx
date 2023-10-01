@@ -21,7 +21,10 @@ const MarketplacePage: FunctionComponent<MarketplacePageProps> = (props): JSX.El
     const [isLimitDistance, setIsLimitDistance] = useState<boolean>(false);
     const [maxDistance, setMaxDistance] = useState<number>(100);
 
-    function acceptEntry(s: string) {
+    function acceptEntry(s: string, dist: number) {
+        if (isLimitDistance && dist > maxDistance) return false;
+        console.log(dist)
+        console.log(maxDistance)
         return cleanAndLowercase(s).includes(lowerSearchPattern);
     }
 
