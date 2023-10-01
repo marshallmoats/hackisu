@@ -5,3 +5,15 @@
     width: "12em";
     color: #000;
 }
+
+
+.hover-fx {
+    border-radius: 8px !important;
+    border: 2px solid #fe880100 !important;
+
+    transition: all 0.176s ease-out !important;
+}
+
+.hover-fx:hover {
+    border: 2px solid #fe8801 !important;
+}

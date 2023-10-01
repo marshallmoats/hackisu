@@ -41,7 +41,7 @@ const MarketLeftSidebar: FunctionComponent<MarketLeftSidebarProps> = (props): JS
     };
 
     return (
-        <Paper elevation={6} className="market-left-sidebar">
+        <Paper elevation={6} className="market-left-sidebar hover-fx">
             <Box style={{
                 border: "1px solid #ccc",
                 borderRadius: "4px",

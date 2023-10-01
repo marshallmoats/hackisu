@@ -32,3 +32,13 @@
     flex-direction: column !important;
     justify-content: space-between !important;
 }
+
+.hover-fx {
+    border: 3px solid #fe880100 !important;
+
+    transition: all 0.176s ease-out !important;
+}
+
+.hover-fx:hover {
+    border: 3px solid #fe8801 !important;
+}

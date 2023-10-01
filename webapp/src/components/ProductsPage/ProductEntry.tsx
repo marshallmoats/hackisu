@@ -41,7 +41,7 @@ const ProductEntry: FunctionComponent<ProductEntryProps> = (props): JSX.Element 
         setAnchorEl(null);
     };
 
-    return (<Card elevation={4} className="products-entry-card">
+    return (<Card elevation={4} className="products-entry-card hover-fx">
         <CardActionArea sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}
             component={Link} to={`/produce/${props.Products.id}`}
         >

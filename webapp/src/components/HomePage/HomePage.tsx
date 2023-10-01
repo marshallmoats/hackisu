@@ -59,23 +59,29 @@ const HomePage = () => {
             width: "70%",
         }}>
             <Link href="/produce">
-                <Button className="intro-chips">
-                    <Typography variant="h5">
-                        Placeholder text
+                <Button className="intro-chips hover-fx">
+                    <Typography variant="h5" className="" sx={{ p: 2 }}>
+                        <b>
+                            Browse fresh produce
+                        </b>
                     </Typography>
                 </Button>
             </Link>
             <Link href="markets">
-                <Button className="intro-chips">
-                    <Typography variant="h5">
-                        Browse farmers' marketplaces
+                <Button className="intro-chips hover-fx">
+                    <Typography variant="h5" className="" sx={{ p: 2 }}>
+                        <b>
+                            View farmers' marketplaces
+                        </b>
                     </Typography>
                 </Button>
             </Link>
             <Link href="map">
-                <Button className="intro-chips">
-                    <Typography variant="h5">
-                        Explore local markets near you
+                <Button className="intro-chips hover-fx">
+                    <Typography variant="h5" className="" sx={{ p: 2 }}>
+                        <b>
+                            Explore local markets near you
+                        </b>
                     </Typography>
                 </Button>
             </Link>

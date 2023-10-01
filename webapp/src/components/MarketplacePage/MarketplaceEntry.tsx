@@ -45,7 +45,7 @@ const MarketplaceEntry: FunctionComponent<MarketplaceEntryProps> = (props): JSX.
         setAnchorEl(null);
     };
 
-    return (<Card elevation={6} className="market-entry-card" sx={{
+    return (<Card elevation={6} className="market-entry-card hover-fx" sx={{
         minHeight: props.compactify ? "3.675em" : "21em",
         height: props.compactify ? "" : "21em"
     }}>

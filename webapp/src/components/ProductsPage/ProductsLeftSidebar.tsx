@@ -15,7 +15,7 @@ interface ProductsLeftSidebarProps {
 
 const ProductsLeftSidebar: FunctionComponent<ProductsLeftSidebarProps> = (props): JSX.Element => {
 
-    return (<Paper elevation={6} className="products-left-sidebar">
+    return (<Paper elevation={6} className="products-left-sidebar hover-fx">
         <Box sx={{
             background: "#eee",
             border: "1px solid #ccc",
