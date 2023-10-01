@@ -25,3 +25,4 @@ const images = [
 export function randomMarketImage(hash: number) {
     return images[hash % images.length];
 }
+

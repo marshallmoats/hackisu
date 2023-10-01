@@ -17,6 +17,9 @@ const MarketplacePage: FunctionComponent<MarketplacePageProps> = (props): JSX.El
     const [markets, setMarkets] = useState<MarketProps[]>([]);
     const [searchPattern, setSearchPattern] = useState<string>("");
 
+    const [isLimitDistance, setIsLimitDistance] = useState<boolean>(false);
+    const [maxDistance, setMaxDistance] = useState<number>(100);
+
     function acceptEntry(s: string) {
         return cleanAndLowercase(s).includes(searchPattern);
     }
@@ -30,7 +33,13 @@ const MarketplacePage: FunctionComponent<MarketplacePageProps> = (props): JSX.El
     return <Box className="frsbc market-page-container" style={{
         height: "100%"
     }}>
-        <MarketLeftSidebar setSearchPattern={setSearchPattern} />
+        <MarketLeftSidebar
+            setSearchPattern={setSearchPattern}
+            isLimitDistance={isLimitDistance}
+            setIsLimitDistance={setIsLimitDistance}
+            maxDistance={maxDistance}
+            setMaxDistance={setMaxDistance}
+        />
         <MarketMainContent markets={markets} acceptEntry={acceptEntry} />
     </Box>;
 }

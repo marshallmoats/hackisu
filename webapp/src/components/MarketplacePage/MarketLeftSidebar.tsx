@@ -4,26 +4,27 @@ import Searchbar from "../Misc/Searchbar";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import FormControlLabel from "@mui/material/FormControlLabel";
-import TextField from "@mui/material/TextField";
-import { makeStyles } from "@mui/material/styles";
 import Checkbox from "@mui/material/Checkbox";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
-import { Button, Divider, FormGroup, InputLabel, MenuItem, Radio, RadioGroup, Select, Switch } from "@mui/material";
+import { FormGroup, InputLabel, MenuItem, Radio, RadioGroup, Select, Switch } from "@mui/material";
 
 interface MarketLeftSidebarProps {
     setSearchPattern: (arg0: string) => void;
+    isLimitDistance: boolean;
+    setIsLimitDistance: (arg0: boolean) => void;
+    maxDistance: number;
+    setMaxDistance: (arg0: number) => void;
+
 }
 
 const MarketLeftSidebar: FunctionComponent<MarketLeftSidebarProps> = (props): JSX.Element => {
-    const [name, setName] = useState('');
-    const [age, setAge] = useState(25);
     const [isStudent, setIsStudent] = useState(false);
     const [gender, setGender] = useState('male');
     const [country, setCountry] = useState('');
 
     const handleChange = (event: Event, newValue: number | number[]) => {
-        setAge(newValue as number);
+        props.setMaxDistance(newValue as number);
     };
 
     const handleCheckboxChange = (event: any) => {
@@ -55,11 +56,17 @@ const MarketLeftSidebar: FunctionComponent<MarketLeftSidebarProps> = (props): JS
             gap: "1em"
         }}>
             <Box className="frsbc">
-                <FormControlLabel control={<Switch defaultChecked onChange={() => {}} />} label="Limit distance" />
+                <FormControlLabel control={
+                    <Switch
+                        value={props.isLimitDistance}
+                        onChange={(e) => { props.setIsLimitDistance(e.target.checked) }}
+                    />
+                } label="Limit distance" />
                 <FormControl aria-label="text" sx={{ flexGrow: 1 }}>
                     <Slider
-                        value={age}
+                        value={props.maxDistance}
                         defaultValue={100}
+                        disabled={!props.isLimitDistance}
                         onChange={handleChange}
                         min={0}
                         max={300}
