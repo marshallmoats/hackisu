@@ -3,5 +3,6 @@ export interface MarketProps {
     lat: number,
     long: number,
     name: string,
+    description: string,
     userIds: number[]
 }

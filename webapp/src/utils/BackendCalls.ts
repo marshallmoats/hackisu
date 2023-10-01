@@ -7,6 +7,7 @@ function createMarketProps(res: any): MarketProps {
         lat: res.lat,
         long: res.long,
         name: res.name,
+        description: res.desc,
         userIds: res.user_ids
     }
 }

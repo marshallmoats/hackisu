@@ -81,7 +81,7 @@ const NavBar: FunctionComponent<NavBarProps> = (props): JSX.Element => {
         </Paper>
 
         <Paper className="frsbc navbar-chip" elevation={8}>
-            <Searchbar onChange={() => { }} />
+            <Searchbar placeholder="Search HarvestHub" onChange={() => { }} />
         </Paper>
     </Box>;
 }

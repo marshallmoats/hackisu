@@ -13,23 +13,20 @@ interface MarketplacePageProps {
 }
 
 const MarketplacePage: FunctionComponent<MarketplacePageProps> = (props): JSX.Element => {
-    const appCtx = useContext(AppContext);
     const [markets, setMarkets] = useState<MarketProps[]>([]);
+    const [searchPattern, setSearchPattern] = useState<string>("");
 
     useEffect(() => {
         getMarketList().then((res): void => {
-            setMarkets(res ?? markets);
-            appCtx.markets = markets;
-            appCtx.setMarkets = setMarkets;
-            console.log(markets)
+            setMarkets(res ?? []);
         })
     }, [])
 
     return <Box className="frsbc market-page-container" style={{
         height: "100%"
     }}>
-        <MarketLeftSidebar />
-        <MarketMainContent />
+        <MarketLeftSidebar setSearchPattern={setSearchPattern} />
+        <MarketMainContent markets={markets} searchPattern={searchPattern} />
     </Box>;
 }
 
