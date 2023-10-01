@@ -278,5 +278,5 @@ def create_app(test_config=None):
 # context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
 # context.load_cert_chain('server.crt', 'server.key')
 
-if __name__ == '__main__':  
-    app.run('127.0.0.1', debug=True, ssl_context=('/home/marshall/src/hackisu/server.crt', '/home/marshall/src/hackisu/server.key'))
+# if __name__ == '__main__':  
+#     app.run('127.0.0.1', debug=True, ssl_context=('/home/marshall/src/hackisu/server.crt', '/home/marshall/src/hackisu/server.key'))
