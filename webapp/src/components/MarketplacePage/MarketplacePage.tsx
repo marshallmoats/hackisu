@@ -26,10 +26,14 @@ const MarketplacePage: FunctionComponent<MarketplacePageProps> = (props): JSX.El
         return cleanAndLowercase(s).includes(lowerSearchPattern);
     }
 
-    useEffect(() => {
+    function refreshMarketList() {
         getMarketList().then((res): void => {
             setMarkets(res);
         })
+    }
+
+    useEffect(() => {
+        refreshMarketList();
     }, [])
 
     return <Box className="frsbc market-page-container" style={{
@@ -42,7 +46,10 @@ const MarketplacePage: FunctionComponent<MarketplacePageProps> = (props): JSX.El
             maxDistance={maxDistance}
             setMaxDistance={setMaxDistance}
         />
-        <MarketMainContent markets={markets} acceptEntry={acceptEntry} />
+        <MarketMainContent
+        markets={markets}
+        acceptEntry={acceptEntry}
+        refreshMarketList={refreshMarketList}/>
     </Box>;
 }
 

@@ -38,6 +38,7 @@ const MarketCreationModal: FunctionComponent<MarketCreationModalProps> = (props)
     const [waitingFind, setWaitingFind] = useState<boolean>(false);
     const [description, setDescription] = useState<string>("");
     const [waiting, setWaiting] = useState<boolean>(false);
+    const incompleteForm = long === null || lat === null || name.length === 0 || description.length === 0;
 
     function findAddressAction() {
         setWaitingFind(true);
@@ -66,7 +67,14 @@ const MarketCreationModal: FunctionComponent<MarketCreationModalProps> = (props)
 
     function submitAction() {
         setWaiting(true);
-        createMarket(name, long, lat, description, 0, 0).the
+        if (!incompleteForm) {
+            createMarket(name, long, lat, description, 0, 0).then(() => {
+                clearAndClose();
+                setWaiting(false);
+            })
+        } else {
+            setWaiting(false);
+        }
     }
 
     function clearAndClose() {
@@ -113,7 +121,7 @@ const MarketCreationModal: FunctionComponent<MarketCreationModalProps> = (props)
                                 <TextField sx={{ flexGrow: 1 }} value={address} label="Address" variant="outlined" onChange={(e) => {
                                     setAddress(e.target.value)
                                 }} />
-                                <Button variant="contained" sx={{ height: "100%" }} disabled={waitingFind}
+                                <Button variant="contained" sx={{ height: "100%" }} disabled={waitingFind || address.length < 5}
                                     onClick={findAddressAction}>
                                     <SearchIcon />&ensp;
                                     <Typography>
@@ -154,7 +162,7 @@ const MarketCreationModal: FunctionComponent<MarketCreationModalProps> = (props)
                             Cancel
                         </Button>
                         <Button
-                            disabled={waiting}
+                            disabled={waiting || incompleteForm}
                             type="submit"
                             variant="contained"
                             color="primary"

@@ -1,11 +1,9 @@
-import Box from "@mui/material/Box";
 import { FunctionComponent, useState } from "react";
 import { MarketProps } from "../../utils/types";
 import MarketplaceEntry from "./MarketplaceEntry";
-import { cleanAndLowercase, haversineDistance } from "../../utils/Helpers";
+import { haversineDistance } from "../../utils/Helpers";
 import Snackbar from "@mui/material/Snackbar";
 import Card from "@mui/material/Card";
-import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
 import MarketCreationModal from "./MarketCreationModal";
@@ -16,6 +14,7 @@ import Paper from "@mui/material/Paper";
 interface MarketMainContentProps {
     markets: MarketProps[];
     acceptEntry: (s: string, dist: number) => boolean;
+    refreshMarketList: () => void;
 }
 
 const MarketplaceMainContent: FunctionComponent<MarketMainContentProps> = (props): JSX.Element => {
@@ -25,7 +24,8 @@ const MarketplaceMainContent: FunctionComponent<MarketMainContentProps> = (props
     const [modalOpen, setModalOpen] = useState<boolean>(false);
 
     function handleCloseModal() {
-        setModalOpen(false);
+        props.refreshMarketList();
+        setTimeout(() => { setModalOpen(false) }, 500);
     }
 
     function handleSaveAction(id: number) {
@@ -64,7 +64,7 @@ const MarketplaceMainContent: FunctionComponent<MarketMainContentProps> = (props
                 geodesicDistance={dist}
             />
         })}
-        <Card elevation={6} className="market-entry-card" sx={{height: "21em"}}>
+        <Card elevation={6} className="market-entry-card" sx={{ height: "21em" }}>
             <CardActionArea sx={{
                 width: "100%",
                 height: "100%",
