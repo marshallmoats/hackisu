@@ -23,7 +23,6 @@ function createProductsProps(res: any): ProductsProps {
         vendor: res.vendor,
         price: res.price,
         description: res.desc,
-        image: res.image,
     }
 }
 

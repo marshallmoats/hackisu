@@ -24,10 +24,24 @@ const images = [
     "https://www.dsmpartnership.com/desmoinesfarmersmarket/filesimages/Events/Calendar%20Event%20Photos/Header/CalendarEvents10_Header.jpg",
     "https://i.ytimg.com/vi/r9c-ASlORRA/maxresdefault.jpg",
 ]
+
+const foodImages = [
+    "https://images.pexels.com/photos/2899682/pexels-photo-2899682.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "https://nypost.com/wp-content/uploads/sites/2/2022/09/pumpkins-1.jpg?quality=75&strip=all&w=1024",
+]
+
 export function randomMarketImage(hash: number) {
     return images[hash % images.length];
 }
 
+export function getFoodImage(name: string) {
+    switch(name) {
+        case "Tomato": 
+            return foodImages[0];
+        case "Pumpkin":
+            return foodImages[1];
+    }
+}
 
 export function timestampToDate(timestampSeconds: number) {
     return moment.unix(timestampSeconds).format('ddd, MMM DD');

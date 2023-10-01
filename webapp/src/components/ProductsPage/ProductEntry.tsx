@@ -15,7 +15,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from "@mui/material/Divider";
 import BookmarkSharpIcon from '@mui/icons-material/BookmarkSharp';
-import { hashString } from "../../utils/Helpers";
+import { hashString, getFoodImage } from "../../utils/Helpers";
 import Rating from "@mui/material/Rating";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ShareIcon from '@mui/icons-material/Share';
@@ -106,7 +106,7 @@ const ProductEntry: FunctionComponent<ProductEntryProps> = (props): JSX.Element 
             <CardMedia
                 component="img"
                 height="192"
-                image={props.Products.image ? props.Products.image : "./placeHolder.png"}
+                image={getFoodImage(props.Products.name)}
             />
             <CardContent >
                 <Typography sx={{
