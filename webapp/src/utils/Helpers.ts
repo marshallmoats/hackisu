@@ -28,6 +28,10 @@ const images = [
 const foodImages = [
     "https://images.pexels.com/photos/2899682/pexels-photo-2899682.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
     "https://nypost.com/wp-content/uploads/sites/2/2022/09/pumpkins-1.jpg?quality=75&strip=all&w=1024",
+    "https://images.pexels.com/photos/3650647/pexels-photo-3650647.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "https://images.pexels.com/photos/16732706/pexels-photo-16732706/free-photo-of-fresh-corns-at-the-market.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "https://images.pexels.com/photos/7129145/pexels-photo-7129145.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+    "https://media.istockphoto.com/id/1128276208/photo/fresh-rhubarb.jpg?b=1&s=612x612&w=0&k=20&c=aezgYAuztHh1WZIg-Iv-zbLudtR6IsLr2hKirPKJEps=",
 ]
 
 export function randomMarketImage(hash: number) {
@@ -40,6 +44,14 @@ export function getFoodImage(name: string) {
             return foodImages[0];
         case "Pumpkin":
             return foodImages[1];
+        case "Carrot":
+            return foodImages[2];
+        case "Sweet Corn":
+            return foodImages[3];
+        case "Potato":
+            return foodImages[4];
+        case "Rhubarb":
+            return foodImages[5];
     }
 }
 
