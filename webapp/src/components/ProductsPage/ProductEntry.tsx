@@ -41,7 +41,7 @@ const ProductEntry: FunctionComponent<ProductEntryProps> = (props): JSX.Element 
         setAnchorEl(null);
     };
 
-    return (<Card elevation={4} className="Products-entry-card">
+    return (<Card elevation={4} className="products-entry-card">
         <CardActionArea sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}
             component={Link} to={`/produce/${props.Products.id}`}
         >
@@ -102,7 +102,7 @@ const ProductEntry: FunctionComponent<ProductEntryProps> = (props): JSX.Element 
             </Menu>
             <CardMedia
                 component="img"
-                height="192"
+                height="128"
                 image={getFoodImage(props.Products.name)}
             />
             <CardContent >

@@ -14,6 +14,8 @@ import HomePage from './components/HomePage/HomePage';
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import MapPage from './components/MapPage/MapPage';
+import LoginPage from './components/LoginPage';
+import RegisterPage from './components/RegisterPage';
 
 // Define your routes
 const routes = [
@@ -32,6 +34,14 @@ const routes = [
     {
         path: "/map",
         element: <MapPage />
+    },
+    {
+        path: "/login",
+        element: <LoginPage />
+    },
+    {
+        path: "/register",
+        element: <RegisterPage />
     }
 ];
 

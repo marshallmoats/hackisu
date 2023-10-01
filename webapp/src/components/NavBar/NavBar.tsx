@@ -106,10 +106,10 @@ const NavBar: FunctionComponent<NavBarProps> = (props): JSX.Element => {
                     }
                 }}>
                     <Link to={"/login"}>
-                        <Button>Log in</Button>
+                        <Button><Typography noWrap fontSize="1em">Log in</Typography></Button>
                     </Link>
                     <Link to={"/register"}>
-                        <Button>Sign up</Button>
+                        <Button><Typography noWrap fontSize="1em">Sign up</Typography></Button>
                     </Link>
                     <IconButton
                         size="large"

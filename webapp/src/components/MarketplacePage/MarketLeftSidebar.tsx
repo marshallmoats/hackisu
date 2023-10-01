@@ -79,41 +79,32 @@ const MarketLeftSidebar: FunctionComponent<MarketLeftSidebarProps> = (props): JS
                 </Box>
                 <DatePicker label="Filter date: MM/DD/YYYY" />
                 <FormControlLabel
-                    control={
-                        <Checkbox
-                            checked={isStudent}
-                            onChange={handleCheckboxChange}
-                            color="primary"
-                        />
-                    }
+                control={
+                    <Checkbox color="primary" />
+                }
+                label="Placeholder"
+            />
+            <FormControl component="fieldset">
+                <FormLabel>Placeholder</FormLabel>
+                <RadioGroup>
+                    <FormControlLabel value="a" control={<Radio />} label="Placeholder" />
+                    <FormControlLabel value="b" control={<Radio />} label="Placeholder" />
+                    <FormControlLabel value="c" control={<Radio />} label="Placeholder" />
+                </RadioGroup>
+            </FormControl>
+            <FormControl variant="outlined">
+                <InputLabel id="label">Placeholder</InputLabel>
+                <Select
+                    labelId="label"
+                    id="select"
                     label="Placeholder"
-                />
-                <FormControl component="fieldset">
-                    <FormLabel>Placeholder</FormLabel>
-                    <RadioGroup
-                        value={gender}
-                        onChange={handleRadioChange}
-                    >
-                        <FormControlLabel value="a" control={<Radio />} label="Placeholder" />
-                        <FormControlLabel value="b" control={<Radio />} label="Placeholder" />
-                        <FormControlLabel value="c" control={<Radio />} label="Placeholder" />
-                    </RadioGroup>
-                </FormControl>
-                <FormControl variant="outlined">
-                    <InputLabel id="country-label">Placeholder</InputLabel>
-                    <Select
-                        labelId="country-label"
-                        id="country-select"
-                        value={country}
-                        onChange={handleDropdownChange}
-                        label="Placeholder"
-                    >
-                        <MenuItem value="a">Placeholder</MenuItem>
-                        <MenuItem value="b">Placeholder</MenuItem>
-                        <MenuItem value="c">Placeholder</MenuItem>
-                        <MenuItem value="d">Placeholder</MenuItem>
-                    </Select>
-                </FormControl>
+                >
+                    <MenuItem value="a">Placeholder</MenuItem>
+                    <MenuItem value="b">Placeholder</MenuItem>
+                    <MenuItem value="c">Placeholder</MenuItem>
+                    <MenuItem value="d">Placeholder</MenuItem>
+                </Select>
+            </FormControl>
             </FormGroup>
         </Paper>);
 }
