@@ -1,0 +1,24 @@
+register
+    <username>
+
+users
+    <id>
+
+markets
+    all
+    create
+    join
+        <market_id>
+            <user_id>
+    <market_id>
+        users
+
+item
+    add
+    <id>
+        sell
+            <amt>
+
+image
+    <id>
+    upload

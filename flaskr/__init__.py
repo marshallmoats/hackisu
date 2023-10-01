@@ -2,9 +2,20 @@ import os
 
 from . import db
 
-from flask import Flask, request
+from flask import Flask, request, make_response
 
 from flask_cors import CORS
+
+def query_db(query, args=(), one=False):
+    database = db.get_db()
+    cur = database.cursor()
+    cur.execute(query, args)
+    r = [dict((cur.description[i][0], value) \
+               for i, value in enumerate(row)) for row in cur.fetchall()]
+    database.commit()
+    return (r[0] if r else None) if one else r
+
+
 
 def create_app(test_config=None):
     # create and configure the app
@@ -63,6 +74,11 @@ def create_app(test_config=None):
             # changes
             data = request.form # a multidict containing POST data
     
+    @app.route('/item/<id>')
+    def item(id):
+        result = query_db("SELECT * FROM item WHERE id = (?)", (id,), True)
+        return result
+
     @app.route('/markets/all')
     def all_markets():
         database = db.get_db()
@@ -72,8 +88,10 @@ def create_app(test_config=None):
                 "SELECT * FROM market",
                 ()
             )
+            print("TEST")
         except Exception as e:
-            return e
+            print("ERROR")
+            return f"{e}"
 
         return [
             {
@@ -82,7 +100,9 @@ def create_app(test_config=None):
                 "lat": market[2],
                 "long": market[3],
                 "desc": market[4],
-                "user_ids": market_userids(market[0])
+                "user_ids": print(market_userids(market[0])),
+                "start_time": market[5],
+                "end_time": market[6]
             } for market in cur.fetchall()
         ]
 
@@ -110,8 +130,8 @@ def create_app(test_config=None):
         database = db.get_db()
         try:
             database.execute(
-                "INSERT OR REPLACE INTO uid_mid (user_id, market_id) VALUES (?, ?)",
-                (user_id, market_id)
+                "UPDATE user SET market_id = (?) WHERE id = (?)",
+                (market_id, user_id)
             )
             database.commit()
         except Exception as e:
@@ -119,19 +139,24 @@ def create_app(test_config=None):
         
         return "Successfully joined market."
 
-    @app.route('/markets/<market_id>/users', methods = ['GET', 'POST', 'DELETE'])
+    @app.route('/markets/<market_id>/userids', methods = ['GET', 'POST', 'DELETE'])
     def market_userids(market_id):
         database = db.get_db()
         cur = database.cursor()
         try:
             cur.execute(
-                "SELECT * FROM uid_mid WHERE market_id = (?)",
+                "SELECT id FROM user WHERE market_id = (?)",
                 (market_id,)
             )
         except Exception as e:
             return e
 
         return [row[0] for row in cur.fetchall()]
+    
+    @app.route('/markets/<id>/users')
+    def market_users(id):
+        results = query_db('SELECT * FROM user WHERE market_id = (?)', (id,))
+        return results
 
     @app.route('/image/<image_id>')
     def get_image(image_id):
@@ -143,9 +168,16 @@ def create_app(test_config=None):
                 (image_id,)
             )
         except Exception as e:
-            return e
-        print(cur.fetchall())
-        return [row[1] for row in cur.fetchall()]
+            return f"{e}"
+        image_binary = cur.fetchall()[0][1]
+        print(image_binary)
+        response = make_response(image_binary)
+        response.headers.set('Content-Type', 'image/jpeg')
+        response.headers.set(
+            'Content-Disposition',
+            'attachment', filename='%s.jpg' % image_id)
+        print(response)
+        return response
 
     @app.route('/image/upload', methods = ["POST"])
     def upload_image():
@@ -169,8 +201,8 @@ def create_app(test_config=None):
         database = db.get_db()
         try:
             database.execute(
-                "INSERT INTO item (name, qty, vendor, price, desc) VALUES (?, ?, ?, ?, ?)",
-                (j.get('name'), j.get('qty'), j.get('vendor'), j.get('price'), j.get('desc'))
+                "INSERT INTO item (name, qty, vendor, price, desc, img) VALUES (?, ?, ?, ?, ?, ?)",
+                (j.get('name'), j.get('qty'), j.get('vendor'), j.get('price'), j.get('desc'), request.files.get('image'))
             )
             database.commit()
         except Exception as e:
@@ -196,20 +228,35 @@ def create_app(test_config=None):
         cur = database.cursor()
         try:
             cur.execute(
-                "SELECT * FROM item WHERE vendor = (?)",
+                "SELECT id FROM item WHERE vendor = (?)",
                 (id,)
             )
         except Exception as e:
             return e
-
+        
         return [row[0] for row in cur.fetchall()]
 
     @app.route('/markets/<id>/items')
     def market_items(id):
         vendors = market_userids(id)
-        res = []
+        iids = []
         for uid in vendors:
-            res += user_items(uid)
-        return res
+            iids += user_items(uid)
+        return [
+            item(iid) for iid in iids
+        ]
+    
+    @app.route('/users/all')
+    def all_users():
+        results = query_db('SELECT * FROM user', ())
+        return results
+
+    @app.route('/sqlquery', methods = ['POST'])
+    def sql_query():
+        query = request.get_data().decode('ascii')
+        print(query)
+
+        return str(query_db(query, ()))
 
     return app
+
