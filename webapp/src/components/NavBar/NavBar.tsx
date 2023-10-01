@@ -15,6 +15,7 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Searchbar from "../Misc/Searchbar";
 import Paper from "@mui/material/Paper";
+import { Link } from "react-router-dom";
 
 interface NavBarProps {
 
@@ -49,10 +50,10 @@ const NavBar: FunctionComponent<NavBarProps> = (props): JSX.Element => {
                     }
                 }
             }}>
-                <Button>Home</Button>
-                <Button>Market</Button>
-                <Button>Events</Button>
-                <Button>Map</Button>
+                <Link to={"/"}>Home</Link>
+                <Link to={"/market"}>Market</Link>
+                <Link to={"/calendar"}>Events</Link>
+                <Link to={"/map"}>Map</Link>
                 <IconButton
                     size="large"
                     color="inherit"

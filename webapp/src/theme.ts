@@ -11,7 +11,7 @@ const globalTheme = createTheme({
     },
 
     typography: {
-        fontSize: 13,
+        fontSize: 12,
         fontFamily: [
             'Barlow',
             '-apple-system',

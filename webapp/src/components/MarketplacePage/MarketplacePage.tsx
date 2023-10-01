@@ -18,7 +18,7 @@ const MarketplacePage: FunctionComponent<MarketplacePageProps> = (props): JSX.El
 
     useEffect(() => {
         getMarketList().then((res): void => {
-            setMarkets(res ?? []);
+            setMarkets(res);
         })
     }, [])
 

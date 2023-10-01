@@ -12,7 +12,7 @@ function createMarketProps(res: any): MarketProps {
     }
 }
 
-export async function getMarketList(): Promise<MarketProps[] | undefined> {
+export async function getMarketList(): Promise<MarketProps[]> {
     try {
         const result: any = await fetch(`${ENDPOINT}/markets/all`, {
             method: "GET",
@@ -25,6 +25,6 @@ export async function getMarketList(): Promise<MarketProps[] | undefined> {
         return (await result.json()).map(createMarketProps);
     } catch (ex) {
         console.log(ex);
-        return undefined;
+        return [];
     }
 }
