@@ -2,7 +2,8 @@ DROP TABLE IF EXISTS user;
 -- DROP TABLE IF EXISTS post;
 DROP TABLE IF EXISTS market;
 DROP TABLE IF EXISTS uid_mid;
-DROP TABLE IF EXISTS imgs;
+DROP TABLE IF EXISTS img;
+DROP TABLE IF EXISTS item;
 
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -12,9 +13,11 @@ CREATE TABLE user (
 CREATE TABLE market (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   market_name TEXT NOT NULL,
-  -- user_ids 
   lat REAL,
-  long REAL
+  long REAL,
+  desc TEXT,
+  start_time INTEGER,
+  end_time INTEGER
 );
 
 CREATE TABLE uid_mid (
@@ -22,17 +25,16 @@ CREATE TABLE uid_mid (
   market_id INTEGER
 );
 
-CREATE TABLE imgs (
+CREATE TABLE img (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   img_data BLOB
-)
+);
 
--- CREATE TABLE post (
---   id INTEGER PRIMARY KEY AUTOINCREMENT,
---   author_id INTEGER NOT NULL,
---   created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
---   title TEXT NOT NULL,
---   body TEXT NOT NULL,
---   FOREIGN KEY (author_id) REFERENCES user (id)
--- );
-
+CREATE TABLE item (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  name TEXT,
+  qty INTEGER,
+  vendor INTEGER,
+  price INTEGER,
+  desc TEXT
+);
