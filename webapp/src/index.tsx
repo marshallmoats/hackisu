@@ -8,20 +8,25 @@ import NavBar from './components/NavBar/NavBar';
 import { ThemeProvider } from '@mui/material/styles';
 import MarketplacePage from './components/MarketplacePage/MarketplacePage';
 import { AppContext, AppContextProps, emptyAppContext } from './context';
+import ProductsPage from './components/ProductsPage/ProductsPage';
 import { getMarketList } from './utils/BackendCalls';
 import { MarketProps } from './utils/types';
 import { Router, Route, Link, BrowserRouter, Routes } from "react-router-dom";
 
 // Define your routes
 const routes = [
-    {
-        path: "/",
-        element: <App />,
-    },
-    {
-        path: "/market",
-        element: <MarketplacePage />,
-    }
+  {
+    path: "/",
+    element: <App />,
+  },
+  {
+    path: "/market",
+    element: <MarketplacePage />,
+  },
+  {
+    path: "/products",
+    element: <ProductsPage />
+  }
 ];
 
 const root = ReactDOM.createRoot(
