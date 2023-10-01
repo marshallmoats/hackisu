@@ -46,7 +46,8 @@ const MarketplaceEntry: FunctionComponent<MarketplaceEntryProps> = (props): JSX.
     };
 
     return (<Card elevation={6} className="market-entry-card" sx={{
-        minHeight: props.compactify ? "3.675em" : "21em"
+        minHeight: props.compactify ? "3.675em" : "21em",
+        height: props.compactify ? "" : "21em"
     }}>
         <CardHeader
             style={{
