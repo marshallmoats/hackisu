@@ -31,10 +31,6 @@ def create_app(test_config=None):
     from . import db
     db.init_app(app)
 
-    @app.route('/')
-    def index():
-        return 'Homepage'
-
     @app.route('/register/<username>', methods = ['POST'])
     def register(username):
         database = db.get_db()
@@ -66,33 +62,9 @@ def create_app(test_config=None):
             # with your lxml knowledge to make the required
             # changes
             data = request.form # a multidict containing POST data
-        if request.method == 'DELETE':
-            """delete user with ID <user_id>"""
-        else:
-            pass
-            # POST Error 405 Method Not Allowed
-    
-    # @app.route('/markets/all')
-    # def all_markets():
-    #     return [
-    #         {
-    #             "id": 0,
-    #             "name": "Ames Farmers' Market",
-    #             "user_ids": [0, 1, 5, 9],
-    #             "lat": 42.023680,
-    #             "long": -93.649614,
-    #         },
-    #         {
-    #             "id": 1,
-    #             "name": "Des Moines Farmers' Market",
-    #             "user_ids": [13, 200, 4, 6],
-    #             "lat": 41.596464,
-    #             "long": -93.688780
-    #         }
-    #     ]
     
     @app.route('/markets/all')
-    def every_market():
+    def all_markets():
         database = db.get_db()
         cur = database.cursor()
         try:
@@ -121,10 +93,12 @@ def create_app(test_config=None):
         lat = request.json['lat']
         long = request.json['long']
         desc = request.json['desc']
+        start = request.json['start'] if 'start' in request.json else None
+        end = request.json['end'] if 'end' in request.json else None
         try:
             database.execute(
-                "INSERT INTO market (market_name, lat, long, desc) VALUES (?, ?, ?, ?)",
-                (name, lat, long, desc)
+                "INSERT INTO market (market_name, lat, long, desc, start_time, end_time) VALUES (?, ?, ?, ?, ?, ?)",
+                (name, lat, long, desc, start, end)
             )
             database.commit()
         except Exception as e:
@@ -145,7 +119,7 @@ def create_app(test_config=None):
         
         return "Successfully joined market."
 
-    @app.route('/markets/users/<market_id>', methods = ['GET', 'POST', 'DELETE'])
+    @app.route('/markets/<market_id>/users', methods = ['GET', 'POST', 'DELETE'])
     def market_userids(market_id):
         database = db.get_db()
         cur = database.cursor()
@@ -188,5 +162,54 @@ def create_app(test_config=None):
             return "Image uploaded successfully."
         else:
             return "No image provided."
+
+    @app.route('/item/add', methods = ["POST"])
+    def add_item():
+        j = request.json
+        database = db.get_db()
+        try:
+            database.execute(
+                "INSERT INTO item (name, qty, vendor, price, desc) VALUES (?, ?, ?, ?, ?)",
+                (j.get('name'), j.get('qty'), j.get('vendor'), j.get('price'), j.get('desc'))
+            )
+            database.commit()
+        except Exception as e:
+            return f"{e}"
+        return "Item added successfully."
+    
+    @app.route('/item/<id>/sell/<amt>', methods = ["POST"])
+    def sell_item(id, amt):
+        database = db.get_db()
+        try:
+            database.execute(
+                "UPDATE item SET qty = qty - (?) WHERE id = (?)",
+                (amt, id)
+            )
+            database.commit()
+        except Exception as e:
+            return f"{e}"
+        return "Item(s) sold successfully."
+    
+    @app.route('/users/<id>/items')
+    def user_items(id):
+        database = db.get_db()
+        cur = database.cursor()
+        try:
+            cur.execute(
+                "SELECT * FROM item WHERE vendor = (?)",
+                (id,)
+            )
+        except Exception as e:
+            return e
+
+        return [row[0] for row in cur.fetchall()]
+
+    @app.route('/markets/<id>/items')
+    def market_items(id):
+        vendors = market_userids(id)
+        res = []
+        for uid in vendors:
+            res += user_items(uid)
+        return res
 
     return app
