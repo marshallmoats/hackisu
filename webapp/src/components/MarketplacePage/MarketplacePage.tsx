@@ -16,12 +16,13 @@ interface MarketplacePageProps {
 const MarketplacePage: FunctionComponent<MarketplacePageProps> = (props): JSX.Element => {
     const [markets, setMarkets] = useState<MarketProps[]>([]);
     const [searchPattern, setSearchPattern] = useState<string>("");
+    const lowerSearchPattern = searchPattern.toLowerCase();
 
     const [isLimitDistance, setIsLimitDistance] = useState<boolean>(false);
     const [maxDistance, setMaxDistance] = useState<number>(100);
 
     function acceptEntry(s: string) {
-        return cleanAndLowercase(s).includes(searchPattern);
+        return cleanAndLowercase(s).includes(lowerSearchPattern);
     }
 
     useEffect(() => {

@@ -1,3 +1,5 @@
+import moment from 'moment';
+
 export function hashString(s: string | undefined): number {
     if (s === undefined) return 0;
     let hash = 0;
@@ -26,3 +28,7 @@ export function randomMarketImage(hash: number) {
     return images[hash % images.length];
 }
 
+
+export function timestampToDate(timestampSeconds: number) {
+    return moment.unix(timestampSeconds).format('ddd, MMM DD, YYYY');
+}

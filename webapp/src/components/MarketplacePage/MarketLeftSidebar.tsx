@@ -53,49 +53,44 @@ const MarketLeftSidebar: FunctionComponent<MarketLeftSidebarProps> = (props): JS
         <FormGroup sx={{
             display: "flex",
             flexDirection: "column",
-            gap: "1em"
+            gap: "0.4em"
         }}>
-            <Box className="frsbc">
-                <FormControlLabel control={
-                    <Switch
-                        value={props.isLimitDistance}
-                        onChange={(e) => { props.setIsLimitDistance(e.target.checked) }}
-                    />
-                } label="Limit distance" />
-                <FormControl aria-label="text" sx={{ flexGrow: 1 }}>
-                    <Slider
-                        value={props.maxDistance}
-                        defaultValue={100}
-                        disabled={!props.isLimitDistance}
-                        onChange={handleChange}
-                        min={0}
-                        max={300}
-                        valueLabelDisplay="off"
-                    />
-                </FormControl>
-            </Box>
+            <FormControlLabel control={
+                <Switch
+                    value={props.isLimitDistance}
+                    onChange={(e) => { props.setIsLimitDistance(e.target.checked) }}
+                />
+            } label={`Limit distance to ${props.maxDistance} mi`} />
+            <FormControl aria-label="text" sx={{ flexGrow: 1 }}>
+                <Slider
+                    value={props.maxDistance}
+                    defaultValue={100}
+                    disabled={!props.isLimitDistance}
+                    onChange={handleChange}
+                    min={0}
+                    max={300}
+                    valueLabelDisplay="auto"
+                />
+            </FormControl>
             <FormControlLabel
                 control={
                     <Checkbox
                         checked={isStudent}
                         onChange={handleCheckboxChange}
-                        name="isStudent"
                         color="primary"
                     />
                 }
-                label="Are you a student?"
+                label="Placeholder"
             />
             <FormControl component="fieldset">
-                <FormLabel component="legend">Gender</FormLabel>
+                <FormLabel>Placeholder</FormLabel>
                 <RadioGroup
-                    aria-label="gender"
-                    name="gender"
                     value={gender}
                     onChange={handleRadioChange}
                 >
-                    <FormControlLabel value="male" control={<Radio />} label="Male" />
-                    <FormControlLabel value="female" control={<Radio />} label="Female" />
-                    <FormControlLabel value="other" control={<Radio />} label="Other" />
+                    <FormControlLabel value="a" control={<Radio />} label="Placeholder" />
+                    <FormControlLabel value="b" control={<Radio />} label="Placeholder" />
+                    <FormControlLabel value="c" control={<Radio />} label="Placeholder" />
                 </RadioGroup>
             </FormControl>
             <FormControl variant="outlined">
@@ -107,10 +102,10 @@ const MarketLeftSidebar: FunctionComponent<MarketLeftSidebarProps> = (props): JS
                     onChange={handleDropdownChange}
                     label="Country"
                 >
-                    <MenuItem value="usa">USA</MenuItem>
-                    <MenuItem value="canada">Canada</MenuItem>
-                    <MenuItem value="uk">UK</MenuItem>
-                    <MenuItem value="other">Other</MenuItem>
+                    <MenuItem value="a">Placeholder</MenuItem>
+                    <MenuItem value="b">Placeholder</MenuItem>
+                    <MenuItem value="c">Placeholder</MenuItem>
+                    <MenuItem value="d">Placeholder</MenuItem>
                 </Select>
             </FormControl>
         </FormGroup>

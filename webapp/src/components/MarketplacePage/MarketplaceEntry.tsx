@@ -15,7 +15,7 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from "@mui/material/Divider";
 import BookmarkSharpIcon from '@mui/icons-material/BookmarkSharp';
-import { hashString, randomMarketImage } from "../../utils/Helpers";
+import { hashString, randomMarketImage, timestampToDate } from "../../utils/Helpers";
 import Rating from "@mui/material/Rating";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import ShareIcon from '@mui/icons-material/Share';
@@ -70,7 +70,7 @@ const MarketplaceEntry: FunctionComponent<MarketplaceEntryProps> = (props): JSX.
             }
             subheader={
                 <Typography color="text.secondary" fontSize="0.8em">
-                    September 30, 2023
+                    { timestampToDate(props.market.startTime) } - { timestampToDate(props.market.endTime) }
                 </Typography>
             }
         />
@@ -115,7 +115,7 @@ const MarketplaceEntry: FunctionComponent<MarketplaceEntryProps> = (props): JSX.
                     WebkitLineClamp: 3,
                     WebkitBoxOrient: 'vertical',
                 }} variant="body2" color="text.primary">
-                    {props.market.description} Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum, rem! Omnis totam eligendi quaerat eum tempora, iure accusamus eveniet ullam facere inventore, consectetur repellat ratione aliquid cumque eos ut necessitatibus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, maxime beatae veritatis repellendus sunt, corrupti officiis eaque suscipit, ullam facilis repellat nulla. Deleniti repellat voluptates earum, autem nulla quam similique.
+                    {props.market.description}. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum, rem! Omnis totam eligendi quaerat eum tempora, iure accusamus eveniet ullam facere inventore, consectetur repellat ratione aliquid cumque eos ut necessitatibus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, maxime beatae veritatis repellendus sunt, corrupti officiis eaque suscipit, ullam facilis repellat nulla. Deleniti repellat voluptates earum, autem nulla quam similique.
                 </Typography>
             </CardContent>
         </CardActionArea>
