@@ -13,9 +13,10 @@ import Typography from '@mui/material/Typography';
 import IconButton from "@mui/material/IconButton";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
-import Searchbar from "../Misc/Searchbar";
+import SearchIcon from '@mui/icons-material/Search';
 import Paper from "@mui/material/Paper";
 import { Link } from "react-router-dom";
+import InputBase from "@mui/material/InputBase";
 
 interface NavBarProps {
 
@@ -38,12 +39,11 @@ const NavBar: FunctionComponent<NavBarProps> = (props): JSX.Element => {
         background: "#f0000000"
     }}>
         <div style={{ flexGrow: 1, width: "100%" }}>
-
-            <Paper className="frsbc navbar-chip" elevation={8}>
+            <Paper className="frsbc navbar-chip" sx={{ width: "fit-content" }} elevation={8}>
                 <a href="/">
                     <img src={logo} height={52} />
                 </a>
-
+                <Divider orientation="vertical" sx={{ height: 36 }} />
                 <Box className="frsbc" sx={{
                     button: {
                         fontSize: "1.1em", typography: { textTransform: "none", color: "#000" },
@@ -67,17 +67,39 @@ const NavBar: FunctionComponent<NavBarProps> = (props): JSX.Element => {
                 </Box>
             </Paper>
         </div>
-        <div style={{ flexGrow: 1, width: "100%", display: "flex", justifyContent: "center" }}>
+        {/* <div style={{ flexGrow: 1, width: "100%", display: "flex", justifyContent: "center" }}>
             <Paper className="frsbc navbar-chip" elevation={8} sx={{ width: "70% !important" }}>
-                <Searchbar placeholder="Search HarvestHub" onChange={() => { }} />
+                
             </Paper>
-        </div>
+        </div> */}
 
         <div style={{ flexGrow: 1, width: "100%", display: "flex", justifyContent: "end" }}>
             <Paper className="frsbc navbar-chip" elevation={8} sx={{ height: "62px !important" }}>
+                <Box
+                    component="form"
+                    sx={{
+                        p: "3px",
+                        pl: "6spx",
+                        display: 'flex',
+                        mt: "1px", mb: "1px",
+                        alignItems: 'center',
+                        width: "100%",
+                        boxSizing: "border-box"
+                    }}
+                >
+                    <InputBase
+                        sx={{ ml: 1, flex: 1 }}
+                        placeholder="Search HarvestHub"
+                        onChange={() => { }}
+                    />
+                    <IconButton type="button" sx={{ p: '4px' }}>
+                        <SearchIcon />
+                    </IconButton>
+                </Box>
+                <Divider sx={{ height: 36}} orientation="vertical" />
                 <Box className="frsbc" sx={{
                     button: {
-                        fontSize: "1.1em", typography: { textTransform: "none", color: "#000" },
+                        fontSize: "1.0em", typography: { textTransform: "none", color: "#000" },
                         "&:hover": {
                             background: "#ddd"
                         }

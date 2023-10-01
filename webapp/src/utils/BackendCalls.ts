@@ -25,6 +25,58 @@ function createProductsProps(res: any): ProductsProps {
         description: res.desc,
     }
 }
+export async function createMarket(
+    name: string,
+    long: number,
+    lat: number,
+    description: string,
+    startTime: number,
+    endTime: number
+) {
+    try {
+        const result: any = await fetch(`${ENDPOINT}/markets/create`, {
+            method: "POST",
+            mode: "cors",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                name: name,
+                long: long,
+                lat: lat,
+                desc: description,
+                // start_time: startTime,
+                // end_time: endTime,
+            }),
+        });
+
+        await result.json();
+    } catch (ex) {
+        console.log(ex);
+    }
+}
+
+export async function getCoordinates(address: string) {
+    const headers = {
+        'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64; rv:109.0) Gecko/20100101 Firefox/117.0',
+        'Accept': '*/*',
+        'Accept-Language': 'en-US,en;q=0.5',
+        'Accept-Encoding': 'gzip, deflate, br',
+        'Referer': 'https://www.latlong.net/convert-address-to-lat-long.html',
+        'Content-type': 'application/x-www-form-urlencoded',
+        'X-Requested-With': 'XMLHttpRequest',
+        'Origin': 'https://www.latlong.net',
+        'Connection': 'keep-alive',
+        'Cookie': 'PHPSESSID=vs13am7efjn9fh2u7l2mdccul1',
+        'Sec-Fetch-Dest': 'empty',
+        'Sec-Fetch-Mode': 'cors',
+        'Sec-Fetch-Site': 'same-origin',
+        'TE': 'trailers'
+    };
+
+    const data = 'c1=606%20bissell%20road%20ames%20iowa&action=gpcm&cp=';
+}
+
 
 export async function getMarketList(): Promise<MarketProps[]> {
     try {
@@ -124,6 +176,31 @@ export async function getProductsList(): Promise<ProductsProps[] | undefined> {
             }
         });
         return (await result.json()).map(createProductsProps);
+    } catch (ex) {
+        console.log(ex);
+        return undefined;
+    }
+}
+
+export async function getAddressCoordinates(address: string): Promise<{ latitude: number; longitude: number, formattedAddress: string } | undefined> {
+    try {
+        const apiKey = "AIzaSyC6jYez1NcN4BozawgiBnubXZ1V70Atq_M";
+        const url = `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(address)}&key=${apiKey}`;
+        const response = await fetch(url, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "accept": "application/json",
+            }
+        });
+        if (response.ok) {
+            const data = await response.json();
+            if (data.status === "OK") {
+                const location = data.results[0].geometry.location;
+                return { latitude: location.lat, longitude: location.lng, formattedAddress: data.results[0].formatted_address };
+            }
+        }
+        return undefined;
     } catch (ex) {
         console.log(ex);
         return undefined;

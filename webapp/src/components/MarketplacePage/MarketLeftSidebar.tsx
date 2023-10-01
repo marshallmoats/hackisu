@@ -100,7 +100,7 @@ const MarketLeftSidebar: FunctionComponent<MarketLeftSidebarProps> = (props): JS
                     </RadioGroup>
                 </FormControl>
                 <FormControl variant="outlined">
-                    <InputLabel id="country-label">Country</InputLabel>
+                    <InputLabel id="country-label">Placeholder</InputLabel>
                     <Select
                         labelId="country-label"
                         id="country-select"
