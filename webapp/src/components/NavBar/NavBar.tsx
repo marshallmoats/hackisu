@@ -44,16 +44,24 @@ const NavBar: FunctionComponent<NavBarProps> = (props): JSX.Element => {
 
             <Box className="frsbc" sx={{
                 button: {
-                    fontSize: "1.2em", typography: { textTransform: "none", color: "#000" },
+                    fontSize: "1.1em", typography: { textTransform: "none", color: "#000" },
                     "&:hover": {
                         background: "#ddd"
                     }
                 }
             }}>
-                <Link to={"/"}>Home</Link>
-                <Link to={"/market"}>Market</Link>
-                <Link to={"/calendar"}>Events</Link>
-                <Link to={"/map"}>Map</Link>
+                <Link to={"/"}>
+                    <Button>Home</Button>
+                </Link>
+                <Link to={"/market"}>
+                    <Button>Market</Button>
+                </Link>
+                <Link to={"/calendar"}>
+                    <Button>Events</Button>
+                </Link>
+                <Link to={"/map"}>
+                    <Button>Map</Button>
+                </Link>
                 <IconButton
                     size="large"
                     color="inherit"

@@ -10,7 +10,6 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1.475em;
-    overflow-y: scroll;
     /* border: 1px solid green; */
 }
 

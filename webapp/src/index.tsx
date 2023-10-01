@@ -5,14 +5,15 @@ import App from './App';
 import globalTheme from './theme';
 import NavBar from './components/NavBar/NavBar';
 
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import MarketplacePage from './components/MarketplacePage/MarketplacePage';
 import { AppContext, AppContextProps, emptyAppContext } from './context';
 import { getMarketList } from './utils/BackendCalls';
 import { MarketProps } from './utils/types';
+import { Router, Route, Link, BrowserRouter, Routes } from "react-router-dom";
 
-const router = createBrowserRouter([
+// Define your routes
+const routes = [
     {
         path: "/",
         element: <App />,
@@ -21,8 +22,7 @@ const router = createBrowserRouter([
         path: "/market",
         element: <MarketplacePage />,
     }
-]);
-
+];
 
 const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
@@ -31,23 +31,35 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <ThemeProvider theme={globalTheme}>
-            <div style={{
-                height: "100vh",
-                padding: "0.625em",
-                boxSizing: "border-box",
-                display: 'flex',
-                gap: 4,
-                flexDirection: "column",
-                justifyContent: "flex-start"
-            }}>
-                <NavBar />
+            <BrowserRouter>
+                {/* Move the NavBar inside the Router */}
                 <div style={{
-                    flexGrow: 1,
-                    height: "100%",
+                    height: "100vh",
+                    padding: "0.625em",
+                    boxSizing: "border-box",
+                    display: 'flex',
+                    gap: 4,
+                    flexDirection: "column",
+                    justifyContent: "flex-start"
                 }}>
-                    <RouterProvider router={router} />
+                    <NavBar />
+                    <div style={{
+                        flexGrow: 1,
+                        height: "100%",
+                    }}>
+                        {/* Use Routes for defining your routes */}
+                        <Routes>
+                            {routes.map((route) => (
+                                <Route
+                                    key={route.path}
+                                    path={route.path}
+                                    element={route.element}
+                                />
+                            ))}
+                        </Routes>
+                    </div>
                 </div>
-            </div>
+            </BrowserRouter>
         </ThemeProvider>
     </React.StrictMode>
 );
