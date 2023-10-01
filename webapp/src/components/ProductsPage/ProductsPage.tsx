@@ -1,28 +1,33 @@
-//@ts-nocheck
-
 import "./styles.css";
+
 import Box from "@mui/material/Box";
 import { FunctionComponent, useContext, useEffect, useState } from "react";
+import ProductsLeftSidebar from "./ProductsLeftSidebar";
+import ProductsMainContent from "./ProductsMainContent";
 import { AppContext } from "../../context";
-import Item from "./Item";
+import { getProductsList } from "../../utils/BackendCalls";
+import { ProductsProps } from "../../utils/types";
 
-const ProductsPage = (props): JSX.Element => {
-    return <div right="0px" width="800px">
-        <Box className="frsbc products-page-container" style={{
-            height: "100%"
-        }}>
-            <Item item="Tomato" vendor="Ya Boi" location="Aldi's"/>
-            <Item item="Tomato1" vendor="Ya Boi1" price="$5.00"/>
-            <Item item="Tomato2" vendor="Ya Boi2" location="World Trade Center" price="$9.11"/>
-        </Box>
-        <Box className="frsbc market-page-container" style={{
-            height: "100%"
-        }}>
-            <Item item="Tomato" vendor="Ya Boi"/>
-            <Item item="Tomato1" vendor="Ya Boi1"/>
-            <Item item="Tomato2" vendor="Ya Boi2"/>
-        </Box>
-    </div>
+interface ProductsplacePageProps {
+
 }
 
-export default ProductsPage;
+const ProductsplacePage: FunctionComponent<ProductsplacePageProps> = (props): JSX.Element => {
+    const [Products, setProducts] = useState<ProductsProps[]>([]);
+    const [searchPattern, setSearchPattern] = useState<string>("");
+
+    useEffect(() => {
+        getProductsList().then((res): void => {
+            setProducts(res ?? []);
+        })
+    }, [])
+
+    return <Box className="frsbc Products-page-container" style={{
+        height: "100%"
+    }}>
+        <ProductsLeftSidebar setSearchPattern={setSearchPattern} />
+        <ProductsMainContent Products={Products} searchPattern={searchPattern} />
+    </Box>;
+}
+
+export default ProductsplacePage;
