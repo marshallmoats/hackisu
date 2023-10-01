@@ -9,6 +9,8 @@ import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import Typography from "@mui/material/Typography";
 import CardActionArea from "@mui/material/CardActionArea";
 import MarketCreationModal from "./MarketCreationModal";
+import AddBoxIcon from '@mui/icons-material/AddBox';
+import Paper from "@mui/material/Paper";
 
 
 interface MarketMainContentProps {
@@ -40,7 +42,7 @@ const MarketplaceMainContent: FunctionComponent<MarketMainContentProps> = (props
         setSaved(updatedSaved);
     }
 
-    return <Box className="market-main-content">
+    return <Paper elevation={3} className="market-main-content">
         {modalOpen &&
             <MarketCreationModal isOpen={modalOpen} handleClose={handleCloseModal} />
         }
@@ -62,7 +64,7 @@ const MarketplaceMainContent: FunctionComponent<MarketMainContentProps> = (props
                 geodesicDistance={dist}
             />
         })}
-        <Card elevation={4} className="market-entry-card">
+        <Card elevation={6} className="market-entry-card" sx={{height: "21em"}}>
             <CardActionArea sx={{
                 width: "100%",
                 height: "100%",
@@ -75,15 +77,15 @@ const MarketplaceMainContent: FunctionComponent<MarketMainContentProps> = (props
                 onClick={() => {
                     setModalOpen(true);
                 }}>
-                <EditCalendarIcon sx={{
-                    transform: "scale(1.65)"
+                <AddBoxIcon sx={{
+                    transform: "scale(2.0)"
                 }} fontSize="large" />
                 <Typography fontSize="1.3em">
-                    Add event
+                    Add market
                 </Typography>
             </CardActionArea>
         </Card>
-    </Box>
+    </Paper>
 }
 
 export default MarketplaceMainContent;

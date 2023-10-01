@@ -12,11 +12,11 @@
   width: fit-content !important;
   border-radius: 12px !important;
   background: #f0f0f0 !important;
-  border: 2px solid #fe880100 !important;
+  border: 3px solid #fe880100 !important;
 
   transition: all 0.176s ease-out !important;
 }
 
 .navbar-chip:hover {
-  border: 2px solid #fe8801 !important;
+  border: 3px solid #fe8801 !important;
 }

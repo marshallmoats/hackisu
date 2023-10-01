@@ -12,6 +12,7 @@ import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
 
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
+import MapPage from './components/MapPage/MapPage';
 
 // Define your routes
 const routes = [
@@ -26,6 +27,10 @@ const routes = [
     {
         path: "/produce",
         element: <ProductsPage />
+    },
+    {
+        path: "/map",
+        element: <MapPage />
     }
 ];
 

@@ -35,63 +35,86 @@ const NavBar: FunctionComponent<NavBarProps> = (props): JSX.Element => {
     return <Box className="frsbc" style={{
         flexGrow: 1,
         padding: "0.1em",
-        background: "none"
+        background: "#f0000000"
     }}>
-        <Paper className="frsbc navbar-chip" elevation={8}>
-            <a href="/">
-                <img src={logo} height={52} />
-            </a>
+        <div style={{ flexGrow: 1, width: "100%" }}>
 
-            <Box className="frsbc" sx={{
-                button: {
-                    fontSize: "1.1em", typography: { textTransform: "none", color: "#000" },
-                    "&:hover": {
-                        background: "#ddd"
+            <Paper className="frsbc navbar-chip" elevation={8}>
+                <a href="/">
+                    <img src={logo} height={52} />
+                </a>
+
+                <Box className="frsbc" sx={{
+                    button: {
+                        fontSize: "1.1em", typography: { textTransform: "none", color: "#000" },
+                        "&:hover": {
+                            background: "#ddd"
+                        }
                     }
-                }
-            }}>
-                <Link to={"/"}>
-                    <Button>Home</Button>
-                </Link>
-                <Link to={"/produce"}>
-                    <Button>Produce</Button>
-                </Link>
-                <Link to={"/markets"}>
-                    <Button>Markets</Button>
-                </Link>
-                <Link to={"/map"}>
-                    <Button>Map</Button>
-                </Link>
-                <IconButton
-                    size="large"
-                    color="inherit"
-                    aria-controls={open ? 'basic-menu' : undefined}
-                    aria-haspopup="true"
-                    aria-expanded={open ? 'true' : undefined}
-                    onClick={handleClick}>
-                    <AccountCircleIcon color="primary"
-                    />
-                </IconButton>
-                <Menu
-                    id="basic-menu"
-                    anchorEl={anchorEl}
-                    open={open}
-                    onClose={handleClose}
-                    MenuListProps={{
-                        'aria-labelledby': 'basic-button',
-                    }}
-                >
-                    <MenuItem onClick={handleClose}>Account</MenuItem>
-                    <MenuItem onClick={handleClose}>Settings</MenuItem>
-                    <Divider />
-                    <MenuItem onClick={handleClose}>Log out</MenuItem>
-                </Menu>
-            </Box>
-        </Paper>
+                }}>
+                    <Link to={"/"}>
+                        <Button>Home</Button>
+                    </Link>
+                    <Link to={"/produce"}>
+                        <Button>Produce</Button>
+                    </Link>
+                    <Link to={"/markets"}>
+                        <Button>Markets</Button>
+                    </Link>
+                    <Link to={"/map"}>
+                        <Button>Map</Button>
+                    </Link>
+                </Box>
+            </Paper>
+        </div>
+        <div style={{ flexGrow: 1, width: "100%", display: "flex", justifyContent: "center" }}>
+            <Paper className="frsbc navbar-chip" elevation={8} sx={{ width: "70% !important" }}>
+                <Searchbar placeholder="Search HarvestHub" onChange={() => { }} />
+            </Paper>
+        </div>
 
-        <Paper className="frsbc navbar-chip" elevation={8}>
-            <Searchbar placeholder="Search HarvestHub" onChange={() => { }} />
-        </Paper>
+        <div style={{ flexGrow: 1, width: "100%", display: "flex", justifyContent: "end" }}>
+            <Paper className="frsbc navbar-chip" elevation={8} sx={{ height: "62px !important" }}>
+                <Box className="frsbc" sx={{
+                    button: {
+                        fontSize: "1.1em", typography: { textTransform: "none", color: "#000" },
+                        "&:hover": {
+                            background: "#ddd"
+                        }
+                    }
+                }}>
+                    <Link to={"/login"}>
+                        <Button>Log in</Button>
+                    </Link>
+                    <Link to={"/register"}>
+                        <Button>Sign up</Button>
+                    </Link>
+                    <IconButton
+                        size="large"
+                        color="inherit"
+                        aria-controls={open ? 'basic-menu' : undefined}
+                        aria-haspopup="true"
+                        aria-expanded={open ? 'true' : undefined}
+                        onClick={handleClick}>
+                        <AccountCircleIcon />
+                    </IconButton>
+                    <Menu
+                        id="basic-menu"
+                        anchorEl={anchorEl}
+                        open={open}
+                        onClose={handleClose}
+                        MenuListProps={{
+                            'aria-labelledby': 'basic-button',
+                        }}
+                    >
+                        <MenuItem onClick={handleClose}>Account</MenuItem>
+                        <MenuItem onClick={handleClose}>Settings</MenuItem>
+                        <Divider />
+                        <MenuItem onClick={handleClose}>Log out</MenuItem>
+                    </Menu>
+                </Box>
+            </Paper>
+        </div>
     </Box>;
 }
 

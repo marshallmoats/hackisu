@@ -48,8 +48,8 @@ export function timestampToDate(timestampSeconds: number) {
 }
 
 // Coordinates of ISU
-const currentLongitude = -93.6512984
-const currentLatitute = 42.0257609
+export const currentLongitude = -93.6512984
+export const currentLatitude = 42.0257609
 
 function toRad(x: number) {
     return x * Math.PI / 180;
@@ -58,7 +58,7 @@ function toRad(x: number) {
 export function haversineDistance(long: number, lat: number) {
 
     var lon1 = currentLongitude;
-    var lat1 = currentLatitute;
+    var lat1 = currentLatitude;
 
     var lon2 = long;
     var lat2 = lat;

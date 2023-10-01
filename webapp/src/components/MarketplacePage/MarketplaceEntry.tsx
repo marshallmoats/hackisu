@@ -27,7 +27,8 @@ import { Link } from "react-router-dom";
 interface MarketplaceEntryProps {
     market: MarketProps;
     handleSaveAction: (arg0: number) => void;
-    isSaved: boolean;
+    compactify?: boolean;
+    isSaved?: boolean;
     geodesicDistance: number;
 }
 
@@ -44,7 +45,9 @@ const MarketplaceEntry: FunctionComponent<MarketplaceEntryProps> = (props): JSX.
         setAnchorEl(null);
     };
 
-    return (<Card elevation={4} className="market-entry-card">
+    return (<Card elevation={6} className="market-entry-card" sx={{
+        minHeight: props.compactify ? "3.5em" : "21em"
+    }}>
         <CardHeader
             style={{
                 padding: "0.55em 1.3em 0.55em 1.125em",
@@ -84,65 +87,69 @@ const MarketplaceEntry: FunctionComponent<MarketplaceEntryProps> = (props): JSX.
             </Box>
             }
         />
-        <Divider />
-        <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-                'aria-labelledby': 'basic-button',
-            }}
-        >
-            <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                    <ShareIcon />
-                </ListItemIcon>
-                <ListItemText>Share</ListItemText>
-            </MenuItem>
-            <MenuItem onClick={handleClose}>
-                <ListItemIcon>
-                    <VisibilityOffIcon />
-                </ListItemIcon>
-                <ListItemText>Hide</ListItemText>
-            </MenuItem>
-        </Menu>
-        <CardActionArea
-            sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}
-            component={Link} to={`/markets/${props.market.id}`}
-        >
-            <CardMedia
-                component="img"
-                height="132"
-                image={randomMarketImage(props.market.id)}
-            />
-            <CardContent sx={{ p: "0.3em 0.7em" }}>
-                <Typography sx={{
-                    fontSize: "0.85em",
-                    overflow: 'hidden',
-                    textOverflow: 'ellipsis',
-                    display: '-webkit-box',
-                    WebkitLineClamp: 3,
-                    WebkitBoxOrient: 'vertical',
-                }} variant="body2" color="text.primary">
-                    {props.market.description}
-                </Typography>
-            </CardContent>
-        </CardActionArea>
-        <Divider />
-        <CardActions className="frsbc" sx={{ pt: 0, pb: 0, pr: 2 }}>
-            <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", m: "0.375em" }}>
-                <IconButton aria-label="save" onClick={() => {
-                    setTimeout(() => { props.handleSaveAction(props.market.id) }, 460)
-                }}>
-                    <BookmarkSharpIcon color={props.isSaved ? "primary" : undefined} />
-                </IconButton>
-                <Typography>
-                    Save
-                </Typography>
-            </Box>
-            <Rating value={ratingValue} precision={0.5} readOnly />
-        </CardActions>
+        {
+            props.compactify || <>
+                <Divider />
+                <Menu
+                    id="basic-menu"
+                    anchorEl={anchorEl}
+                    open={open}
+                    onClose={handleClose}
+                    MenuListProps={{
+                        'aria-labelledby': 'basic-button',
+                    }}
+                >
+                    <MenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                            <ShareIcon />
+                        </ListItemIcon>
+                        <ListItemText>Share</ListItemText>
+                    </MenuItem>
+                    <MenuItem onClick={handleClose}>
+                        <ListItemIcon>
+                            <VisibilityOffIcon />
+                        </ListItemIcon>
+                        <ListItemText>Hide</ListItemText>
+                    </MenuItem>
+                </Menu>
+                <CardActionArea
+                    sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}
+                    component={Link} to={`/markets/${props.market.id}`}
+                >
+                    <CardMedia
+                        component="img"
+                        height="132"
+                        image={randomMarketImage(props.market.id)}
+                    />
+                    <CardContent sx={{ p: "0.3em 0.7em" }}>
+                        <Typography sx={{
+                            fontSize: "0.85em",
+                            overflow: 'hidden',
+                            textOverflow: 'ellipsis',
+                            display: '-webkit-box',
+                            WebkitLineClamp: 3,
+                            WebkitBoxOrient: 'vertical',
+                        }} variant="body2" color="text.primary">
+                            {props.market.description}
+                        </Typography>
+                    </CardContent>
+                </CardActionArea>
+                <Divider />
+                <CardActions className="frsbc" sx={{ pt: 0, pb: 0, pr: 2 }}>
+                    <Box sx={{ display: "flex", flexDirection: "row", alignItems: "center", m: "0.375em" }}>
+                        <IconButton aria-label="save" onClick={() => {
+                            setTimeout(() => { props.handleSaveAction(props.market.id) }, 460)
+                        }}>
+                            <BookmarkSharpIcon color={props.isSaved ? "primary" : undefined} />
+                        </IconButton>
+                        <Typography>
+                            Save
+                        </Typography>
+                    </Box>
+                    <Rating value={ratingValue} precision={0.5} readOnly />
+                </CardActions>
+            </>
+        }
     </Card >);
 }
 
