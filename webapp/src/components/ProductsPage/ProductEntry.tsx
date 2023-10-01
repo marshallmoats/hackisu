@@ -113,7 +113,7 @@ const ProductEntry: FunctionComponent<ProductEntryProps> = (props): JSX.Element 
                     WebkitLineClamp: 4,
                     WebkitBoxOrient: 'vertical',
                 }} variant="body2" color="text.primary">
-                    {props.Products.vendor}<br></br>
+                    Vendor: {props.Products.vendor}<br></br>
                     {props.Products.description}
                 </Typography>
             </CardContent>
