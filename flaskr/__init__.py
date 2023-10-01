@@ -1,4 +1,5 @@
 import os
+import requests
 
 from . import db
 
@@ -88,9 +89,7 @@ def create_app(test_config=None):
                 "SELECT * FROM market",
                 ()
             )
-            print("TEST")
         except Exception as e:
-            print("ERROR")
             return f"{e}"
 
         return [
@@ -100,7 +99,7 @@ def create_app(test_config=None):
                 "lat": market[2],
                 "long": market[3],
                 "desc": market[4],
-                "user_ids": print(market_userids(market[0])),
+                "user_ids": market_userids(market[0]),
                 "start_time": market[5],
                 "end_time": market[6]
             } for market in cur.fetchall()
@@ -183,6 +182,9 @@ def create_app(test_config=None):
     def upload_image():
         image = request.files['image']
 
+        image.save()
+        return "Image uploaded successfully."
+
         if image:
             # Read the binary data of the image
             image_data = image.read()
@@ -258,5 +260,23 @@ def create_app(test_config=None):
 
         return str(query_db(query, ()))
 
+    @app.route('/image/scan', methods = ['POST'])
+    def scan_image():
+        img = request.files['image']
+
+
     return app
 
+# app = create_app()
+
+# # from OpenSSL import SSL
+# # context = SSL.Context(SSL.PROTOCOL_TLSv1_2)
+# # context.use_privatekey_file('server.key')
+# # context.use_certificate_file('server.crt') 
+
+# import ssl
+# context = ssl.SSLContext(ssl.PROTOCOL_TLS_SERVER)
+# context.load_cert_chain('server.crt', 'server.key')
+
+# if __name__ == '__main__':  
+#     app.run('127.0.0.1', debug=True, ssl_context=('/home/marshall/src/hackisu/server.crt', '/home/marshall/src/hackisu/server.key'))

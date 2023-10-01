@@ -1,7 +1,7 @@
 -- DROP TABLE IF EXISTS user;
 -- DROP TABLE IF EXISTS market;
--- DROP TABLE IF EXISTS img;
-DROP TABLE IF EXISTS item;
+DROP TABLE IF EXISTS img;
+-- DROP TABLE IF EXISTS item;
 
 -- CREATE TABLE user (
 --   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -20,19 +20,19 @@ DROP TABLE IF EXISTS item;
 --   end_time INTEGER
 -- );
 
--- CREATE TABLE img (
---   id INTEGER PRIMARY KEY AUTOINCREMENT,
---   img_data BLOB
--- );
-
-CREATE TABLE item (
+CREATE TABLE img (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
-  name TEXT,
-  qty INTEGER,
-  vendor INTEGER,
-  price INTEGER,
-  desc TEXT,
-  img INTEGER,
-  FOREIGN KEY (vendor) REFERENCES user(id),
-  FOREIGN KEY (img) REFERENCES img(id)
+  path TEXT NOT NULL
 );
+
+-- CREATE TABLE item (
+--   id INTEGER PRIMARY KEY AUTOINCREMENT,
+--   name TEXT,
+--   qty INTEGER,
+--   vendor INTEGER,
+--   price INTEGER,
+--   desc TEXT,
+--   img INTEGER,
+--   FOREIGN KEY (vendor) REFERENCES user(id),
+--   FOREIGN KEY (img) REFERENCES img(id)
+-- );
