@@ -15,17 +15,20 @@ import ListItemText from '@mui/material/ListItemText';
 import ListItemIcon from '@mui/material/ListItemIcon';
 import Divider from "@mui/material/Divider";
 import BookmarkSharpIcon from '@mui/icons-material/BookmarkSharp';
-import { hashString, randomMarketImage, timestampToDate } from "../../utils/Helpers";
+import { hashString, haversineDistance, randomMarketImage, timestampToDate } from "../../utils/Helpers";
 import Rating from "@mui/material/Rating";
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import EventIcon from '@mui/icons-material/Event';
 import ShareIcon from '@mui/icons-material/Share';
 import CardActionArea from "@mui/material/CardActionArea";
+import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Link } from "react-router-dom";
 
 interface MarketplaceEntryProps {
     market: MarketProps;
     handleSaveAction: (arg0: number) => void;
     isSaved: boolean;
+    geodesicDistance: number;
 }
 
 const MarketplaceEntry: FunctionComponent<MarketplaceEntryProps> = (props): JSX.Element => {
@@ -59,7 +62,7 @@ const MarketplaceEntry: FunctionComponent<MarketplaceEntryProps> = (props): JSX.
                 </IconButton>
             }
             title={
-                <Typography fontSize="1.1em" sx={{
+                <Typography fontSize="1em" sx={{
                     "&:hover": {
                         textDecoration: "underline",
                         cursor: "pointer"
@@ -68,10 +71,17 @@ const MarketplaceEntry: FunctionComponent<MarketplaceEntryProps> = (props): JSX.
                     {props.market.name}
                 </Typography>
             }
-            subheader={
-                <Typography color="text.secondary" fontSize="0.8em">
-                    { timestampToDate(props.market.startTime) } - { timestampToDate(props.market.endTime) }
+            subheader={<Box sx={{ display: "flex", flexDirection: "row", alignItems: "center" }}>
+                <LocationOnIcon fontSize="small" />
+                <Typography color="text.secondary" fontSize="0.9em">
+                    {Math.round(props.geodesicDistance * 100) / 100} miles
                 </Typography>
+                &ensp;&#xB7;&ensp;
+                <EventIcon fontSize="small" sx={{ mr: 0.3 }} />
+                <Typography color="text.secondary" fontSize="0.9em">
+                    {timestampToDate(props.market.startTime)} - {timestampToDate(props.market.endTime)}
+                </Typography>
+            </Box>
             }
         />
         <Divider />
@@ -115,7 +125,7 @@ const MarketplaceEntry: FunctionComponent<MarketplaceEntryProps> = (props): JSX.
                     WebkitLineClamp: 3,
                     WebkitBoxOrient: 'vertical',
                 }} variant="body2" color="text.primary">
-                    {props.market.description}. Lorem, ipsum dolor sit amet consectetur adipisicing elit. Illum, rem! Omnis totam eligendi quaerat eum tempora, iure accusamus eveniet ullam facere inventore, consectetur repellat ratione aliquid cumque eos ut necessitatibus? Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit, maxime beatae veritatis repellendus sunt, corrupti officiis eaque suscipit, ullam facilis repellat nulla. Deleniti repellat voluptates earum, autem nulla quam similique.
+                    {props.market.description}
                 </Typography>
             </CardContent>
         </CardActionArea>
