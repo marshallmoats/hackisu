@@ -49,7 +49,7 @@ const ProductsplaceEntry: FunctionComponent<ProductsplaceEntryProps> = (props): 
 
     return (<Card elevation={4} className="Products-entry-card">
         <CardActionArea sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}
-            component={Link} to={`/Products/${props.Products.id}`}
+            component={Link} to={`/market/${props.Products.id}`}
         >
             <CardHeader
                 style={{

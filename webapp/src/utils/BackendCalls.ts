@@ -27,7 +27,7 @@ function createProductsProps(res: any): ProductsProps {
     }
 }
 
-export async function getMarketList(): Promise<MarketProps[] | undefined> {
+export async function getMarketList(): Promise<MarketProps[]> {
     try {
         const result: any = await fetch(`${ENDPOINT}/markets/all`, {
             method: "GET",
