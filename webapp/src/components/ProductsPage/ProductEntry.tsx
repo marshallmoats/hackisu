@@ -22,23 +22,17 @@ import ShareIcon from '@mui/icons-material/Share';
 import CardActionArea from "@mui/material/CardActionArea";
 import { Link } from "react-router-dom";
 
-interface ProductsplaceEntryProps {
+interface ProductEntryProps {
     Products: ProductsProps;
     handleSaveAction: (arg0: number) => void;
     isSaved: boolean;
 }
 
-const ProductsplaceEntry: FunctionComponent<ProductsplaceEntryProps> = (props): JSX.Element => {
+const ProductEntry: FunctionComponent<ProductEntryProps> = (props): JSX.Element => {
     const [ratingValue, setRatingValue] = useState<number>(hashString(props.Products.name) % 3 / 2 + 3.5);
 
     const [anchorEl, setAnchorEl] = useState<HTMLElement | null>(null);
     const open = Boolean(anchorEl);
-
-    let imgURL;
-    try {
-        imgURL = URL.createObjectURL(props.Products.image);
-    }
-    catch {}
 
     const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
         setAnchorEl(event.currentTarget);
@@ -79,7 +73,10 @@ const ProductsplaceEntry: FunctionComponent<ProductsplaceEntryProps> = (props): 
                 }
                 subheader={
                     <Typography color="text.secondary" fontSize="0.8em">
-                        {props.Products.vendor}
+                        {"$" + (props.Products.price / 100).toFixed(2)}
+                        <Typography color="text.secondary" fontSize="0.8em">
+                            {props.Products.vendor}
+                        </Typography>
                     </Typography>
                 }
             />
@@ -109,7 +106,7 @@ const ProductsplaceEntry: FunctionComponent<ProductsplaceEntryProps> = (props): 
             <CardMedia
                 component="img"
                 height="192"
-                image={imgURL ? imgURL : "./placeHolder.png"}
+                image={props.Products.image ? props.Products.image : "./placeHolder.png"}
             />
             <CardContent >
                 <Typography sx={{
@@ -140,4 +137,4 @@ const ProductsplaceEntry: FunctionComponent<ProductsplaceEntryProps> = (props): 
     </Card >);
 }
 
-export default ProductsplaceEntry;
+export default ProductEntry;

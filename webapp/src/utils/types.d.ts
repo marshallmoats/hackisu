@@ -16,5 +16,5 @@ export interface ProductsProps {
     vendor: string,
     price: number,
     description: string,
-    image: Blob,
+    image: string,
 }

@@ -8,11 +8,11 @@ import { AppContext } from "../../context";
 import { getProductsList } from "../../utils/BackendCalls";
 import { ProductsProps } from "../../utils/types";
 
-interface ProductsplacePageProps {
+interface ProductsPageProps {
 
 }
 
-const ProductsplacePage: FunctionComponent<ProductsplacePageProps> = (props): JSX.Element => {
+const ProductsPage: FunctionComponent<ProductsPageProps> = (props): JSX.Element => {
     const [Products, setProducts] = useState<ProductsProps[]>([]);
     const [searchPattern, setSearchPattern] = useState<string>("");
 
@@ -30,4 +30,4 @@ const ProductsplacePage: FunctionComponent<ProductsplacePageProps> = (props): JS
     </Box>;
 }
 
-export default ProductsplacePage;
+export default ProductsPage;

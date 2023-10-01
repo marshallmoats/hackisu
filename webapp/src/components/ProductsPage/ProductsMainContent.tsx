@@ -1,7 +1,7 @@
 import Box from "@mui/material/Box";
 import { FunctionComponent, useState } from "react";
 import { ProductsProps } from "../../utils/types";
-import ProductsplaceEntry from "./ProductsEntry";
+import ProductEntry from "./ProductEntry";
 import { cleanAndLowercase } from "../../utils/Helpers";
 import Snackbar from "@mui/material/Snackbar";
 
@@ -45,7 +45,7 @@ const ProductsplaceMainContent: FunctionComponent<ProductsMainContentProps> = (p
         />
         {props.Products.map((m: ProductsProps, i: number) => {
             if (!acceptEntry(m.name, props.searchPattern)) return null;
-            return <ProductsplaceEntry
+            return <ProductEntry
                 key={i}
                 Products={m}
                 handleSaveAction={handleSaveAction}
