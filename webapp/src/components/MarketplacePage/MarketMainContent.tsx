@@ -8,7 +8,7 @@ import Snackbar from "@mui/material/Snackbar";
 
 interface MarketMainContentProps {
     markets: MarketProps[];
-    searchPattern: string;
+    acceptEntry: (arg0: string) => boolean;
 }
 
 const MarketplaceMainContent: FunctionComponent<MarketMainContentProps> = (props): JSX.Element => {
@@ -30,10 +30,7 @@ const MarketplaceMainContent: FunctionComponent<MarketMainContentProps> = (props
         setSaved(updatedSaved);
     }
 
-    function acceptEntry(s: string, pattern: string) {
-        if (pattern.length === 0) return true;
-        return cleanAndLowercase(s).includes(pattern);
-    }
+
 
     return <Box className="market-main-content">
         <Snackbar
@@ -44,7 +41,7 @@ const MarketplaceMainContent: FunctionComponent<MarketMainContentProps> = (props
             message={snackbarMessage}
         />
         {props.markets.map((m: MarketProps, i: number) => {
-            if (!acceptEntry(m.name, props.searchPattern)) return null;
+            if (!props.acceptEntry(m.name)) return null;
             return <MarketplaceEntry
                 key={i}
                 market={m}

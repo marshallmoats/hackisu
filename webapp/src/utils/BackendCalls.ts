@@ -8,7 +8,10 @@ function createMarketProps(res: any): MarketProps {
         long: res.long,
         name: res.name,
         description: res.desc,
-        userIds: res.user_ids
+        startTime: res.start_time,
+        endTime: res.end_time,
+        userIds: res.user_ids,
+
     }
 }
 
@@ -76,6 +79,16 @@ export async function getMarketList(): Promise<MarketProps[]> {
             "long": 11.0,
             "name": "Mason City",
             "user_ids": []
+        },
+        {
+            "desc": "Placeholder Market",
+            "id": 124,
+            "lat": 37.0,
+            "long": 19.0,
+            "name": "Placeholder Market",
+            "user_ids": [
+                1
+            ]
         }]).map(createMarketProps);
     }
 }

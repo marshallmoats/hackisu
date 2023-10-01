@@ -103,7 +103,7 @@ const MarketplaceEntry: FunctionComponent<MarketplaceEntryProps> = (props): JSX.
         >
             <CardMedia
                 component="img"
-                height="172"
+                height="132"
                 image={randomMarketImage(props.market.id)}
             />
             <CardContent sx={{ p: "0.3em 0.7em" }}>

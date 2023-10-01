@@ -1,23 +1,112 @@
 import Paper from "@mui/material/Paper";
-import { ChangeEvent, FunctionComponent } from "react";
+import { ChangeEvent, FunctionComponent, useState } from "react";
 import Searchbar from "../Misc/Searchbar";
 import Box from "@mui/material/Box";
+import Slider from "@mui/material/Slider";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import TextField from "@mui/material/TextField";
+import { makeStyles } from "@mui/material/styles";
+import Checkbox from "@mui/material/Checkbox";
+import FormControl from "@mui/material/FormControl";
+import FormLabel from "@mui/material/FormLabel";
+import { Button, Divider, FormGroup, InputLabel, MenuItem, Radio, RadioGroup, Select, Switch } from "@mui/material";
 
 interface MarketLeftSidebarProps {
     setSearchPattern: (arg0: string) => void;
 }
 
 const MarketLeftSidebar: FunctionComponent<MarketLeftSidebarProps> = (props): JSX.Element => {
+    const [name, setName] = useState('');
+    const [age, setAge] = useState(25);
+    const [isStudent, setIsStudent] = useState(false);
+    const [gender, setGender] = useState('male');
+    const [country, setCountry] = useState('');
+
+    const handleChange = (event: Event, newValue: number | number[]) => {
+        setAge(newValue as number);
+    };
+
+    const handleCheckboxChange = (event: any) => {
+        setIsStudent(event.target.checked);
+    };
+
+    const handleRadioChange = (event: any) => {
+        setGender(event.target.value);
+    };
+
+    const handleDropdownChange = (event: any) => {
+        setCountry(event.target.value);
+    };
 
     return (<Paper elevation={6} className="market-left-sidebar">
-        <Box sx={{
-            m: 2,
-            background: "#eee",
+        <Box style={{
             border: "1px solid #ccc",
-            borderRadius: "4px"
+            borderRadius: "4px",
+            marginBottom: "12px"
         }}>
-            <Searchbar onChange={(e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => { props.setSearchPattern(e.target.value) }} />
+            <Searchbar
+                placeholder="Search for markets"
+                onChange={(e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => { props.setSearchPattern(e.target.value) }}
+            />
         </Box>
+        <FormGroup sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1em"
+        }}>
+            <Box className="frsbc">
+                <FormControlLabel control={<Switch defaultChecked onChange={() => {}} />} label="Limit distance" />
+                <FormControl aria-label="text" sx={{ flexGrow: 1 }}>
+                    <Slider
+                        value={age}
+                        defaultValue={100}
+                        onChange={handleChange}
+                        min={0}
+                        max={300}
+                        valueLabelDisplay="off"
+                    />
+                </FormControl>
+            </Box>
+            <FormControlLabel
+                control={
+                    <Checkbox
+                        checked={isStudent}
+                        onChange={handleCheckboxChange}
+                        name="isStudent"
+                        color="primary"
+                    />
+                }
+                label="Are you a student?"
+            />
+            <FormControl component="fieldset">
+                <FormLabel component="legend">Gender</FormLabel>
+                <RadioGroup
+                    aria-label="gender"
+                    name="gender"
+                    value={gender}
+                    onChange={handleRadioChange}
+                >
+                    <FormControlLabel value="male" control={<Radio />} label="Male" />
+                    <FormControlLabel value="female" control={<Radio />} label="Female" />
+                    <FormControlLabel value="other" control={<Radio />} label="Other" />
+                </RadioGroup>
+            </FormControl>
+            <FormControl variant="outlined">
+                <InputLabel id="country-label">Country</InputLabel>
+                <Select
+                    labelId="country-label"
+                    id="country-select"
+                    value={country}
+                    onChange={handleDropdownChange}
+                    label="Country"
+                >
+                    <MenuItem value="usa">USA</MenuItem>
+                    <MenuItem value="canada">Canada</MenuItem>
+                    <MenuItem value="uk">UK</MenuItem>
+                    <MenuItem value="other">Other</MenuItem>
+                </Select>
+            </FormControl>
+        </FormGroup>
     </Paper>);
 }
 

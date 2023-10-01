@@ -37,12 +37,12 @@ root.render(
     <React.StrictMode>
         <ThemeProvider theme={globalTheme}>
             <BrowserRouter>
-                {/* Move the NavBar inside the Router */}
                 <div style={{
-                    height: "100vh",
+                    height: "93.2vh",
                     padding: "0.625em",
                     boxSizing: "border-box",
                     display: 'flex',
+                    overflow: "visible",
                     gap: 4,
                     flexDirection: "column",
                     justifyContent: "flex-start"
@@ -51,8 +51,8 @@ root.render(
                     <div style={{
                         flexGrow: 1,
                         height: "100%",
+                        overflow: "visible",
                     }}>
-                        {/* Use Routes for defining your routes */}
                         <Routes>
                             {routes.map((route) => (
                                 <Route

@@ -7,6 +7,7 @@ import MarketMainContent from "./MarketMainContent";
 import { AppContext } from "../../context";
 import { getMarketList } from "../../utils/BackendCalls";
 import { MarketProps } from "../../utils/types";
+import { cleanAndLowercase } from "../../utils/Helpers";
 
 interface MarketplacePageProps {
 
@@ -15,6 +16,10 @@ interface MarketplacePageProps {
 const MarketplacePage: FunctionComponent<MarketplacePageProps> = (props): JSX.Element => {
     const [markets, setMarkets] = useState<MarketProps[]>([]);
     const [searchPattern, setSearchPattern] = useState<string>("");
+
+    function acceptEntry(s: string) {
+        return cleanAndLowercase(s).includes(searchPattern);
+    }
 
     useEffect(() => {
         getMarketList().then((res): void => {
@@ -26,7 +31,7 @@ const MarketplacePage: FunctionComponent<MarketplacePageProps> = (props): JSX.El
         height: "100%"
     }}>
         <MarketLeftSidebar setSearchPattern={setSearchPattern} />
-        <MarketMainContent markets={markets} searchPattern={searchPattern} />
+        <MarketMainContent markets={markets} acceptEntry={acceptEntry} />
     </Box>;
 }
 

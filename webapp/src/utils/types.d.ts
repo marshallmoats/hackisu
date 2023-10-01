@@ -4,5 +4,7 @@ export interface MarketProps {
     long: number,
     name: string,
     description: string,
+    startTime: number,
+    endTime: number,
     userIds: number[]
 }
