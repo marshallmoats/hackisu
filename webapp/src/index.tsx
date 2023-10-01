@@ -9,7 +9,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { ThemeProvider } from '@mui/material/styles';
 import MarketplacePage from './components/MarketplacePage/MarketplacePage';
 import { AppContext, AppContextProps, emptyAppContext } from './context';
-import ProductsPage from './components/ProductsPage';
+import ProductsPage from './components/ProductsPage/ProductsPage';
 
 const router = createBrowserRouter([
   {
