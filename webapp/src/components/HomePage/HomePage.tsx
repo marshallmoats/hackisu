@@ -1,22 +1,24 @@
-import "./styles.css";
-
 import Box from "@mui/material/Box";
 import { FunctionComponent, useContext, useEffect, useState } from "react";
 import { AppContext } from "../../context";
-import { getMarketList } from "../../utils/BackendCalls";
-import { MarketProps } from "../../utils/types";
-import { cleanAndLowercase } from "../../utils/Helpers";
+import logo from "./logo.png"
+import Typography from "@mui/material/Typography";
 
-interface MarketplacePageProps {
-
-}
-
-const MarketplacePage: FunctionComponent<MarketplacePageProps> = (props): JSX.Element => {
+const HomePage = () => {
     return <Box className="frsbc market-page-container" style={{
-        height: "100%"
+        height: "100%",
     }}>
-        Hi
+        <div style={{        
+            width: "100%",
+            height: "100%",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            gap: "0px"
+        }}>
+            <img src={logo}></img>
+        </div>
     </Box>;
 }
 
-export default MarketplacePage;
+export default HomePage;

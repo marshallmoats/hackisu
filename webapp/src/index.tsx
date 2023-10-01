@@ -8,7 +8,8 @@ import NavBar from './components/NavBar/NavBar';
 import { ThemeProvider } from '@mui/material/styles';
 import MarketplacePage from './components/MarketplacePage/MarketplacePage';
 import ProductsPage from './components/ProductsPage/ProductsPage';
-import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment'
+import { AdapterMoment } from '@mui/x-date-pickers/AdapterMoment';
+import HomePage from './components/HomePage/HomePage';
 
 import { Route, BrowserRouter, Routes } from "react-router-dom";
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
@@ -18,7 +19,7 @@ import MapPage from './components/MapPage/MapPage';
 const routes = [
     {
         path: "/",
-        element: <App />,
+        element: <HomePage />,
     },
     {
         path: "/markets",

@@ -74,9 +74,6 @@ const ProductEntry: FunctionComponent<ProductEntryProps> = (props): JSX.Element 
                 subheader={
                     <Typography color="text.secondary" fontSize="0.8em">
                         {"$" + (props.Products.price / 100).toFixed(2)}
-                        <Typography color="text.secondary" fontSize="0.8em">
-                            {props.Products.vendor}
-                        </Typography>
                     </Typography>
                 }
             />
@@ -116,6 +113,7 @@ const ProductEntry: FunctionComponent<ProductEntryProps> = (props): JSX.Element 
                     WebkitLineClamp: 4,
                     WebkitBoxOrient: 'vertical',
                 }} variant="body2" color="text.primary">
+                    {props.Products.vendor}<br></br>
                     {props.Products.description}
                 </Typography>
             </CardContent>
