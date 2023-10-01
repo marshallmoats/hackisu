@@ -20,11 +20,11 @@ const routes = [
         element: <App />,
     },
     {
-        path: "/events",
+        path: "/markets",
         element: <MarketplacePage />,
     },
     {
-        path: "/market",
+        path: "/produce",
         element: <ProductsPage />
     }
 ];

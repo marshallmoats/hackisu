@@ -53,10 +53,10 @@ const NavBar: FunctionComponent<NavBarProps> = (props): JSX.Element => {
                 <Link to={"/"}>
                     <Button>Home</Button>
                 </Link>
-                <Link to={"/market"}>
+                <Link to={"/produce"}>
                     <Button>Produce</Button>
                 </Link>
-                <Link to={"/events"}>
+                <Link to={"/markets"}>
                     <Button>Markets</Button>
                 </Link>
                 <Link to={"/map"}>

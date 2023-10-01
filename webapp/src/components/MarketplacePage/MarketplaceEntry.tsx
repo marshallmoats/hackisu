@@ -109,7 +109,7 @@ const MarketplaceEntry: FunctionComponent<MarketplaceEntryProps> = (props): JSX.
         </Menu>
         <CardActionArea
             sx={{ flexGrow: 1, display: "flex", flexDirection: "column", justifyContent: "start", alignItems: "start" }}
-            component={Link} to={`/market/${props.market.id}`}
+            component={Link} to={`/markets/${props.market.id}`}
         >
             <CardMedia
                 component="img"
