@@ -1,10 +1,10 @@
 import Paper from "@mui/material/Paper";
-import { FunctionComponent } from "react";
+import { ChangeEvent, FunctionComponent } from "react";
 import Searchbar from "../Misc/Searchbar";
 import Box from "@mui/material/Box";
 
 interface MarketLeftSidebarProps {
-
+    setSearchPattern: (arg0: string) => void;
 }
 
 const MarketLeftSidebar: FunctionComponent<MarketLeftSidebarProps> = (props): JSX.Element => {
@@ -16,7 +16,7 @@ const MarketLeftSidebar: FunctionComponent<MarketLeftSidebarProps> = (props): JS
             border: "1px solid #ccc",
             borderRadius: "4px"
         }}>
-            <Searchbar onChange={() => { }} />
+            <Searchbar onChange={(e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => { props.setSearchPattern(e.target.value) }} />
         </Box>
     </Paper>);
 }

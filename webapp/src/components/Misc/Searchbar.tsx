@@ -33,10 +33,10 @@ const Searchbar: FunctionComponent<SearchbarProps> = (props): JSX.Element => {
             onChange={props.onChange}
         />
         <IconButton type="button" sx={{ p: '10px' }}>
-            <SearchIcon color="primary" />
+            <SearchIcon />
         </IconButton>
         <Divider sx={{ height: 28, m: 0.5 }} orientation="vertical" />
-        <IconButton color="primary" sx={{ p: '10px' }}>
+        <IconButton  sx={{ p: '10px' }}>
             <FilterListIcon />
         </IconButton>
     </Box>);
