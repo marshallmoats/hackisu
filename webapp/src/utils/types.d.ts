@@ -8,3 +8,13 @@ export interface MarketProps {
     endTime: number,
     userIds: number[]
 }
+
+export interface ProductsProps {
+    id: number,
+    name: string,
+    quantity: number,
+    vendor: string,
+    price: number,
+    description: string,
+    image: Blob,
+}

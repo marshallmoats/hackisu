@@ -1,5 +1,5 @@
 import { ENDPOINT } from "./EndpointDefinition";
-import { MarketProps } from "./types";
+import { MarketProps, ProductsProps } from "./types";
 
 function createMarketProps(res: any): MarketProps {
     return {
@@ -15,7 +15,19 @@ function createMarketProps(res: any): MarketProps {
     }
 }
 
-export async function getMarketList(): Promise<MarketProps[]> {
+function createProductsProps(res: any): ProductsProps {
+    return {
+        id: res.id,
+        name: res.name,
+        quantity: res.qty,
+        vendor: res.vendor,
+        price: res.price,
+        description: res.desc,
+        image: res.image,
+    }
+}
+
+export async function getMarketList(): Promise<MarketProps[] | undefined> {
     try {
         const result: any = await fetch(`${ENDPOINT}/markets/all`, {
             method: "GET",
@@ -90,5 +102,22 @@ export async function getMarketList(): Promise<MarketProps[]> {
                 1
             ]
         }]).map(createMarketProps);
+    }
+}
+
+export async function getProductsList(): Promise<ProductsProps[] | undefined> {
+    try {
+        const result: any = await fetch(`${ENDPOINT}/markets/8/items`, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+                "accept": "application/json",
+            }
+        });
+
+        return (await result.json()).map(createProductsProps);
+    } catch (ex) {
+        console.log(ex);
+        return undefined;
     }
 }
